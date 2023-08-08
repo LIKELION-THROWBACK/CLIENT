@@ -25,7 +25,9 @@ export default Footer;
 const FooterWrapper = styled.div`
   position: fixed;
   bottom: 2.4rem;
-  left: 0rem;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
 
   display: flex;
   align-items: center;
