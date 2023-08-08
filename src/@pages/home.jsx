@@ -1,7 +1,12 @@
 import React from "react";
+import Layout from "../@components/Layout";
 
 const Home = () => {
-  return <div>랜딩페이지</div>;
+  return (
+    <Layout>
+      <div>홈</div>
+    </Layout>
+  );
 };
 
 export default Home;
