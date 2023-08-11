@@ -61,6 +61,7 @@ const CardContainer = styled.div`
   border-radius: 0.8rem;
   background-color: ${theme.colors.gray01};
   box-shadow: 0px 6px 16px 0px rgba(180, 188, 201, 0.12);
+  cursor: pointer;
 `;
 const CardTextBox = styled.div`
   height: 5.4rem;

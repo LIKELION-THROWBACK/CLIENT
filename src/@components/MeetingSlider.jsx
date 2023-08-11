@@ -55,7 +55,7 @@ const SliderSection = styled.div`
   /* margin-left: -1.8rem; */
 `;
 const StyledSlider = styled(Slider)`
-  .slick-slide div {
+  .slick-slide {
     outline: none;
     width: 28.6rem;
     margin-right: 1.8rem;
@@ -72,6 +72,7 @@ const CardContainer = styled.div`
   border-radius: 0.8rem;
   background-color: ${theme.colors.gray01};
   box-shadow: 0px 6px 16px 0px rgba(180, 188, 201, 0.12);
+  cursor: pointer;
 `;
 const CardImage = styled.img`
   width: 25.4rem;

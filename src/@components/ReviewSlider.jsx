@@ -47,28 +47,32 @@ const SliderWrapper = styled.div`
   overflow-y: hidden;
 `;
 const SliderSection = styled.div`
-  /* width: 40rem; */
-  /* margin-left: -1.8rem; */
+  /* width: 40rem;
+  margin-left: -1.8rem; */
 `;
 const StyledSlider = styled(Slider)`
-  .slick-slide div {
+  .slick-slide {
     outline: none;
     width: 30rem;
     margin-right: 1.8rem;
+  }
+  .slick-slide div {
+    display: flex !important;
   }
 `;
 const CardContainer = styled.div`
   display: flex;
   flex-direction: row;
   width: 25.4rem;
-  height: 18.4rem;
-  padding: 1.8rem;
+  height: 19.7rem;
+  padding: 1.8rem 1.5rem 2.1rem 1.8rem;
   border: 1px solid var(--gray-100, #f3f4f6);
   border-radius: 0.8rem;
+  cursor: pointer;
 `;
 const UserImage = styled.div`
-  width: 4.3rem;
   height: 4.3rem;
+  width: 4.3rem;
   background-color: ${theme.colors.gray06};
   border: none;
   border-radius: 10rem;
@@ -76,17 +80,29 @@ const UserImage = styled.div`
 const CardTextBox = styled.div`
   display: flex;
   flex-direction: column;
+  width: 20.8rem;
   margin-left: 1.6rem;
 `;
 const CardTitle = styled.div`
+  margin-top: 0.7rem;
+  margin-bottom: 1.2rem;
   ${theme.fonts.subhead2_medium};
 `;
 const Content = styled.h2`
+  width: 20.8rem;
+  height: 8rem;
+  margin-bottom: 1.2rem;
   ${theme.fonts.body2_regular};
   color: ${theme.colors.gray08};
+
+  overflow-y: hidden;
 `;
 const DateWrapper = styled.div`
   display: flex;
+  justify-content: space-between;
+  width: 20.8rem;
+  height: 2rem;
+  color: ${theme.colors.gray10};
 `;
 const Date = styled.h3`
   ${theme.fonts.body2_medium};
