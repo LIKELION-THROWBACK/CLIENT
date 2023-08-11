@@ -2,14 +2,19 @@ import React from "react";
 import styled from "styled-components";
 import { theme } from "../style/theme";
 import { userIcon, homeIcon, plusIcon } from "../assets";
+import { useNavigate } from "react-router-dom";
 const Footer = () => {
+  const navigate = useNavigate();
+  const handleOpenMeet = () => {
+    navigate(`/openmeeting`);
+  };
   return (
     <FooterWrapper>
       <FooterSection>
         <Icon src={homeIcon} alt="홈 아이콘" />
         <IconText>홈</IconText>
       </FooterSection>
-      <FooterSection>
+      <FooterSection onClick={handleOpenMeet}>
         <Icon src={plusIcon} alt="추가 아이콘" />
         <IconText>추억 만들기</IconText>
       </FooterSection>
@@ -44,6 +49,7 @@ const FooterSection = styled.div`
   flex-direction: column;
   align-items: center;
   width: 12rem;
+  cursor: pointer;
 `;
 const Icon = styled.img`
   width: 2.1rem;
