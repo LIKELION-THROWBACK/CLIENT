@@ -5,8 +5,16 @@ import { backIcon, lessIcon, moreIcon } from "../assets";
 import Footer from "../@components/Footer";
 
 const Openmeeting = () => {
+  const [title, setTitle] = useState("");
   const [imageSource, setImageSource] = useState(null);
   const [people, setPeople] = useState(0);
+  const [date, setDate] = useState("");
+  const [place, setPlace] = useState("");
+  const [money, setmoney] = useState(0);
+  const [description, setDescription] = useState("");
+  const handleTitle = (e) => {
+    setTitle(e.target.value);
+  };
   const handleUpload = (e) => {
     e.preventDefault();
     if (!e.target.files) return;
@@ -42,7 +50,7 @@ const Openmeeting = () => {
       </Header>
       <div>
         <Title>추억 여행 이름을 알려주세요! </Title>
-        <TextInput type="text" placeholder="추억 여행명을 입력하세요"></TextInput>
+        <TextInput type="text" placeholder="추억 여행명을 입력하세요" onChange={(e) => handleTitle(e)} />
       </div>
       <Divider />
       <div>
@@ -53,7 +61,7 @@ const Openmeeting = () => {
           </div>
         ) : (
           <UploadImage htmlFor="file">
-            <ImageText>대표 이미지를 업로드해주세요.</ImageText>
+            <ImageText>대표 이미지를 업로드해주세요</ImageText>
           </UploadImage>
         )}
         <ImageInput accept="image/*" type="file" id="file" onChange={(e) => handleUpload(e)} />
@@ -73,7 +81,16 @@ const Openmeeting = () => {
       <Divider />
       <div>
         <Title>일정</Title>
-        <TextInput type="text" placeholder="모임 날짜를 입력하세요"></TextInput>
+        <DateSection>
+          <DateBox>
+            <Target>시작일</Target>
+            <DateInput type="text" placeholder="ex) 2023.05.13"></DateInput>
+          </DateBox>
+          <DateBox>
+            <Target>종료일</Target>
+            <DateInput type="text" placeholder="ex) 2023.05.14"></DateInput>
+          </DateBox>
+        </DateSection>
       </div>
       <Divider />
       <div>
@@ -202,4 +219,26 @@ const Description = styled.textarea`
     ${theme.fonts.body2_regular};
     color: ${theme.colors.gray08};
   }
+`;
+const DateInput = styled.input`
+  width: 15.6rem;
+  height: 5rem;
+  padding: 1.6rem;
+  margin-top: 0.5rem;
+  color: ${theme.colors.gray09};
+  border-radius: 1.6rem;
+  border: solid 0.1rem ${theme.colors.gray05};
+  outline: none;
+  &::placeholder {
+    ${theme.fonts.body2_regular};
+    color: ${theme.colors.gray08};
+  }
+`;
+const DateSection = styled.div`
+  display: flex;
+  gap: 1.2rem;
+`;
+const DateBox = styled.div`
+  display: flex;
+  flex-direction: column;
 `;

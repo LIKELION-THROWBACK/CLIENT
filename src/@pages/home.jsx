@@ -7,7 +7,9 @@ import MeetingSlider from "../@components/MeetingSlider";
 import NowadaysSlider from "../@components/NowadaysSlider";
 import ReviewSlider from "../@components/ReviewSlider";
 import { profileImg, meetingImg } from "../assets";
+import { getMeetList } from "../api/getMeetList";
 const Home = () => {
+  getMeetList();
   const name = "이미정";
   const meetingList = [
     {
