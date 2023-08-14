@@ -3,12 +3,27 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 import { theme } from "../style/theme";
-import { manyUserIcon } from "../assets";
+import { backIcon, manyUserIcon } from "../assets";
+import { useNavigate } from "react-router-dom";
 
 const MeetingList = (props) => {
+  const navigate = useNavigate();
   const { meetingList } = props;
   return (
     <ListWrapper>
+      <SearchSection>
+        <BackClick>
+          <img
+            src={backIcon}
+            onClick={() => {
+              navigate(-1);
+            }}
+          />
+        </BackClick>
+        <SearchContainer>
+          <TextInput type="text" placeholder="검색하기"></TextInput>
+        </SearchContainer>
+      </SearchSection>
       <ListSection>
         {meetingList?.map((item) => (
           <CardContainer key={item.id}>
@@ -17,16 +32,18 @@ const MeetingList = (props) => {
               <CardTitle>
                 <Title>{item.title}</Title>
               </CardTitle>
+              <CardPlace>경기도 안산</CardPlace>
               <CardDate>{item.date}</CardDate>
-
-              <CardUser>
-                <img src={item.userProfile} />
-                <span>{item.userName}</span>
-              </CardUser>
-              <People>
-                <img src={manyUserIcon} alt="여러명 아이콘" />
-                <span>{item.people}/5</span>
-              </People>
+              <UserPeople>
+                <CardUser>
+                  <img src={item.userProfile} />
+                  <span>{item.userName}</span>
+                </CardUser>
+                <People>
+                  <img src={manyUserIcon} alt="여러명 아이콘" />
+                  <span>{item.people}/5</span>
+                </People>
+              </UserPeople>
             </CardTextBox>
           </CardContainer>
         ))}
@@ -37,20 +54,52 @@ const MeetingList = (props) => {
 
 export default MeetingList;
 const ListWrapper = styled.div`
-  /* width: 37.5rem; */
+  width: 37.5rem;
   overflow-x: hidden;
   overflow-y: hidden;
 `;
+
+const SearchSection = styled.div`
+  display: flex;
+  align-items: center;
+  height: 4.9rem;
+  margin-bottom: 3.5rem;
+  margin-top: 2.5rem;
+`;
+const BackClick = styled.span`
+  width: 2.4rem;
+  height: 2.4rem;
+  padding: 0.55rem 0.84em 0.65rem 0.84rem;
+  margin-right: 1.6rem;
+`;
+const SearchContainer = styled.div`
+  width: 20rem;
+  margin-right: 1rem;
+`;
+const TextInput = styled.input`
+  width: 28rem;
+  height: 4rem;
+  padding: 1.6rem;
+  color: ${theme.colors.gray09};
+  border-radius: 1.6rem;
+  border: solid 0.1rem ${theme.colors.gray05};
+  outline: none;
+  &::placeholder {
+    ${theme.fonts.body2_regular};
+    color: ${theme.colors.gray08};
+  }
+  display: flex;
+  justify-content: space-evenly;
+`;
 const ListSection = styled.div`
-  /* width: 40rem; */
-  /* margin-left: -1.8rem; */
+  width: 40rem;
 `;
 
 const CardContainer = styled.div`
   display: flex;
   flex-direction: flex;
 
-  width: 34.4rem;
+  width: 32rem;
   height: 16rem;
   padding: 1.6rem;
   border: 1px solid var(--gray-100, #f3f4f6);
@@ -58,11 +107,11 @@ const CardContainer = styled.div`
   background-color: ${theme.colors.gray01};
   box-shadow: 0px 6px 16px 0px rgba(180, 188, 201, 0.12);
   cursor: pointer;
+  margin-bottom: 1.6rem;
 `;
 const CardImage = styled.img`
-  width: 50%;
-  height: 100%;
-
+  width: 11.2rem;
+  height: 11.6rem;
   border: none;
   border-radius: 0.8rem;
   background-color: ${theme.colors.gray03};
@@ -103,4 +152,14 @@ const CardUser = styled.div`
 const CardDate = styled.div`
   display: flex;
   ${theme.fonts.body2_medium};
+  margin-top: 0.3rem;
+`;
+const CardPlace = styled.div`
+  ${theme.fonts.body2_regular};
+  margin-top: 0.3rem;
+`;
+const UserPeople = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.6rem;
 `;

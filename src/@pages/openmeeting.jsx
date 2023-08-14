@@ -37,7 +37,12 @@ const Openmeeting = () => {
   return (
     <Wrapper>
       <Header>
-        <Back src={backIcon} />
+        <Back
+          src={backIcon}
+          onClick={() => {
+            navigate(-1);
+          }}
+        />
         <HeaderTitle>추억 여행 만들기</HeaderTitle>
       </Header>
       <div>
