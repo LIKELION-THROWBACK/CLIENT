@@ -2,9 +2,15 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { theme } from "../style/theme";
 import { backIcon, lessIcon, moreIcon } from "../assets";
+import { useRecoilState } from "recoil";
 import Footer from "../@components/Footer";
+import ModalPortal from "../@components/ModalPortal";
+import MeetModal from "../@components/MeetModal";
+import { isModalOpen } from "../atoms/selector";
 
 const Openmeeting = () => {
+  const [modalOpen, setModalOpen] = useRecoilState(isModalOpen);
+
   const [title, setTitle] = useState("");
   const [imageSource, setImageSource] = useState(null);
   const [people, setPeople] = useState(0);
@@ -42,6 +48,14 @@ const Openmeeting = () => {
     if (people === 0) return;
     setPeople(people - 1);
   };
+  const HandleModal = () => {
+    setModalOpen(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+  const HandleModalShow = () => {
+    setModalOpen(false);
+  };
+
   return (
     <Wrapper>
       <Header>
@@ -113,7 +127,14 @@ const Openmeeting = () => {
         <Description type="text" placeholder="내용을 입력하세요"></Description>
       </div>
 
-      <Button type="button">추억 여행 만들기</Button>
+      <Button type="button" onClick={HandleModal}>
+        추억 여행 만들기
+      </Button>
+      {modalOpen && (
+        <ModalPortal>
+          <MeetModal onClose={HandleModalShow} />
+        </ModalPortal>
+      )}
     </Wrapper>
   );
 };
@@ -260,4 +281,5 @@ const Button = styled.button`
   background-color: ${theme.colors.primary};
   ${theme.fonts.subhead2_semibold};
   color: ${theme.colors.white};
+  cursor: pointer;
 `;
