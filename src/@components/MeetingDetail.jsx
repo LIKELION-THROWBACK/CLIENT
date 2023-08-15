@@ -3,10 +3,21 @@ import React from "react";
 import { userIcon, backIcon } from "../assets";
 import { theme } from "../style/theme";
 import { useNavigate } from "react-router-dom";
+import ModalPortal from "./ModalPortal";
+import ApplyModal from "./ApplyModal";
+import { isApplyModalOpen } from "../atoms/selector";
+import { useRecoilState } from "recoil";
 const MeetingDetail = (props) => {
   const { meetingList } = props;
   const navigate = useNavigate();
-
+  const [modalOpen, setModalOpen] = useRecoilState(isApplyModalOpen);
+  const HandleModal = () => {
+    setModalOpen(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+  const HandleModalShow = () => {
+    setModalOpen(false);
+  };
   return (
     <DetailWrapper>
       <BackClick>
@@ -67,7 +78,12 @@ const MeetingDetail = (props) => {
           </DetailContatiner>
         </DeatailSection>
       ))}
-      <ConfirmBtn>함께 추억 만들기</ConfirmBtn>
+      <ConfirmBtn onClick={HandleModal}>함께 추억 만들기</ConfirmBtn>
+      {modalOpen && (
+        <ModalPortal>
+          <ApplyModal onClose={HandleModalShow} />
+        </ModalPortal>
+      )}
     </DetailWrapper>
   );
 };
@@ -211,4 +227,5 @@ const ConfirmBtn = styled.div`
   border-radius: 1.6rem;
   margin: 1.6rem;
   padding: 1.6rem;
+  cursor: pointer;
 `;

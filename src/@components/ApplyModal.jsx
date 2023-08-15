@@ -2,12 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
 import { theme } from "../style/theme";
-import { isModalOpen } from "../atoms/selector";
+import { isApplyModalOpen } from "../atoms/selector";
 import { completeIcon } from "../assets";
 import { useNavigate } from "react-router-dom";
 
-function MeetModal({ onClose }) {
-  const [modalOpen, setModalOpen] = useRecoilState(isModalOpen);
+function ApplyModal({ onClose }) {
+  const [modalOpen, setModalOpen] = useRecoilState(isApplyModalOpen);
   const navigate = useNavigate();
   const handleOpen = () => {
     setModalOpen(false);
@@ -19,11 +19,13 @@ function MeetModal({ onClose }) {
       <Modal>
         <Image src={completeIcon} alt="완료 아이콘" />
         <ModalContent>
-          <ModalTitle>추억여행 만들기 완료! </ModalTitle>
+          <ModalTitle>추억여행 신청 완료!</ModalTitle>
           <ModalSubTitle>
-            추억여행이 만들어졌어요
+            추억여행 신청이
             <br />
-            함께 할 사람들이 모이면 추억이 시작됩니다!
+            성공적으로 완료되었습니다.
+            <br />
+            그때 그 시절으로 떠나보세요.
           </ModalSubTitle>
           <ButtonWrapper>
             <ModalConfirmButton type="button" onClick={handleOpen}>
@@ -36,7 +38,7 @@ function MeetModal({ onClose }) {
   );
 }
 
-export default MeetModal;
+export default ApplyModal;
 const ModalSection = styled.div`
   display: flex;
   justify-content: center;
@@ -52,7 +54,7 @@ const ModalBackground = styled.div`
 `;
 const Modal = styled.div`
   position: absolute;
-  top: 33.6rem;
+  top: 32.1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -65,7 +67,7 @@ const Modal = styled.div`
 const Image = styled.img`
   width: 17rem;
   height: 17rem;
-  margin-top: -2rem;
+  margin-top: -3rem;
 `;
 const ModalContent = styled.div`
   display: flex;
@@ -79,9 +81,9 @@ const ModalTitle = styled.h1`
 `;
 const ModalSubTitle = styled.h2`
   text-align: center;
-  margin-top: 0.4rem;
+  margin-top: 1rem;
   ${theme.fonts.body2_regular};
-  color: ${theme.colors.gray06};
+  color: ${theme.colors.gray08};
 `;
 const ButtonWrapper = styled.div`
   display: flex;
