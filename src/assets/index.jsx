@@ -6,6 +6,7 @@ export { default as manyUserIcon } from "./users.svg";
 export { default as backIcon } from "./back.svg";
 export { default as lessIcon } from "./less.svg";
 export { default as moreIcon } from "./more.svg";
+export { default as completeIcon } from "./complete.svg";
 //사진
 export { default as profileImg } from "./profile.svg";
 export { default as meetingImg } from "./meeting.svg";

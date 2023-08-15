@@ -2,11 +2,25 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { theme } from "../style/theme";
 import { backIcon, lessIcon, moreIcon } from "../assets";
+import { useRecoilState } from "recoil";
 import Footer from "../@components/Footer";
+import ModalPortal from "../@components/ModalPortal";
+import MeetModal from "../@components/MeetModal";
+import { isModalOpen } from "../atoms/selector";
 
 const Openmeeting = () => {
+  const [modalOpen, setModalOpen] = useRecoilState(isModalOpen);
+
+  const [title, setTitle] = useState("");
   const [imageSource, setImageSource] = useState(null);
   const [people, setPeople] = useState(0);
+  const [date, setDate] = useState("");
+  const [place, setPlace] = useState("");
+  const [money, setmoney] = useState(0);
+  const [description, setDescription] = useState("");
+  const handleTitle = (e) => {
+    setTitle(e.target.value);
+  };
   const handleUpload = (e) => {
     e.preventDefault();
     if (!e.target.files) return;
@@ -34,6 +48,14 @@ const Openmeeting = () => {
     if (people === 0) return;
     setPeople(people - 1);
   };
+  const HandleModal = () => {
+    setModalOpen(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+  const HandleModalShow = () => {
+    setModalOpen(false);
+  };
+
   return (
     <Wrapper>
       <Header>
@@ -47,7 +69,7 @@ const Openmeeting = () => {
       </Header>
       <div>
         <Title>추억 여행 이름을 알려주세요! </Title>
-        <TextInput type="text" placeholder="추억 여행명을 입력하세요"></TextInput>
+        <TextInput type="text" placeholder="추억 여행명을 입력하세요" onChange={(e) => handleTitle(e)} />
       </div>
       <Divider />
       <div>
@@ -58,7 +80,7 @@ const Openmeeting = () => {
           </div>
         ) : (
           <UploadImage htmlFor="file">
-            <ImageText>대표 이미지를 업로드해주세요.</ImageText>
+            <ImageText>대표 이미지를 업로드해주세요</ImageText>
           </UploadImage>
         )}
         <ImageInput accept="image/*" type="file" id="file" onChange={(e) => handleUpload(e)} />
@@ -78,7 +100,16 @@ const Openmeeting = () => {
       <Divider />
       <div>
         <Title>일정</Title>
-        <TextInput type="text" placeholder="모임 날짜를 입력하세요"></TextInput>
+        <DateSection>
+          <DateBox>
+            <Target>시작일</Target>
+            <DateInput type="text" placeholder="ex) 2023.05.13"></DateInput>
+          </DateBox>
+          <DateBox>
+            <Target>종료일</Target>
+            <DateInput type="text" placeholder="ex) 2023.05.14"></DateInput>
+          </DateBox>
+        </DateSection>
       </div>
       <Divider />
       <div>
@@ -95,6 +126,15 @@ const Openmeeting = () => {
         <Title>추억 여행 소개</Title>
         <Description type="text" placeholder="내용을 입력하세요"></Description>
       </div>
+
+      <Button type="button" onClick={HandleModal}>
+        추억 여행 만들기
+      </Button>
+      {modalOpen && (
+        <ModalPortal>
+          <MeetModal onClose={HandleModalShow} />
+        </ModalPortal>
+      )}
     </Wrapper>
   );
 };
@@ -103,6 +143,7 @@ export default Openmeeting;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   width: 37.5rem;
 `;
 const Header = styled.div`
@@ -193,11 +234,11 @@ const People = styled.h2`
   color: ${theme.colors.black};
 `;
 const Description = styled.textarea`
-  width: 33.7rem;
+  width: 33.6rem;
   height: 14.8rem;
   padding: 1.6rem;
   margin-top: 0.8rem;
-  margin-bottom: 5rem;
+  /* margin-bottom: 5rem; */
 
   color: ${theme.colors.gray09};
   border-radius: 1.6rem;
@@ -207,4 +248,38 @@ const Description = styled.textarea`
     ${theme.fonts.body2_regular};
     color: ${theme.colors.gray08};
   }
+`;
+const DateInput = styled.input`
+  width: 15.6rem;
+  height: 5rem;
+  padding: 1.6rem;
+  margin-top: 0.5rem;
+  color: ${theme.colors.gray09};
+  border-radius: 1.6rem;
+  border: solid 0.1rem ${theme.colors.gray05};
+  outline: none;
+  &::placeholder {
+    ${theme.fonts.body2_regular};
+    color: ${theme.colors.gray08};
+  }
+`;
+const DateSection = styled.div`
+  display: flex;
+  gap: 1.2rem;
+`;
+const DateBox = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const Button = styled.button`
+  width: 34.3rem;
+  height: 5.8rem;
+  margin-top: 17.2rem;
+  margin-bottom: 2.4rem;
+  border: none;
+  border-radius: 1.6rem;
+  background-color: ${theme.colors.primary};
+  ${theme.fonts.subhead2_semibold};
+  color: ${theme.colors.white};
+  cursor: pointer;
 `;
