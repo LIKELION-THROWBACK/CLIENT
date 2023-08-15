@@ -8,8 +8,8 @@ import NowadaysSlider from "../@components/NowadaysSlider";
 import ReviewSlider from "../@components/ReviewSlider";
 import { profileImg, meetingImg } from "../assets";
 import { getMeetList } from "../api/getMeetList";
+import { useEffect } from "react";
 const Home = () => {
-  getMeetList();
   const name = "이미정";
   const meetingList = [
     {
@@ -67,6 +67,13 @@ const Home = () => {
         break;
     }
   };
+  async function fetchMeetList() {
+    const response = await getMeetList();
+    console.log(response);
+  }
+  useEffect(() => {
+    fetchMeetList();
+  }, []);
   return (
     <Layout>
       <HomeWrapper>
