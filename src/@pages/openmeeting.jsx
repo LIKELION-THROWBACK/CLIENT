@@ -107,6 +107,8 @@ const Openmeeting = () => {
         <Title>추억 여행 소개</Title>
         <Description type="text" placeholder="내용을 입력하세요"></Description>
       </div>
+
+      <Button type="button">추억 여행 만들기</Button>
     </Wrapper>
   );
 };
@@ -115,6 +117,7 @@ export default Openmeeting;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   width: 37.5rem;
 `;
 const Header = styled.div`
@@ -205,11 +208,11 @@ const People = styled.h2`
   color: ${theme.colors.black};
 `;
 const Description = styled.textarea`
-  width: 33.7rem;
+  width: 33.6rem;
   height: 14.8rem;
   padding: 1.6rem;
   margin-top: 0.8rem;
-  margin-bottom: 5rem;
+  /* margin-bottom: 5rem; */
 
   color: ${theme.colors.gray09};
   border-radius: 1.6rem;
@@ -241,4 +244,15 @@ const DateSection = styled.div`
 const DateBox = styled.div`
   display: flex;
   flex-direction: column;
+`;
+const Button = styled.button`
+  width: 34.3rem;
+  height: 5.8rem;
+  margin-top: 17.2rem;
+  margin-bottom: 2.4rem;
+  border: none;
+  border-radius: 1.6rem;
+  background-color: ${theme.colors.primary};
+  ${theme.fonts.subhead2_semibold};
+  color: ${theme.colors.white};
 `;
