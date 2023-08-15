@@ -2,51 +2,54 @@ import React from "react";
 import styled from "styled-components";
 import { backIcon } from "../assets";
 import { theme } from "../style/theme";
-import Layout from "./Layout";
+import { useNavigate } from "react-router-dom";
 const MypageProfile = (props) => {
   const { Profile } = props;
+  const navigate = useNavigate();
+
   return (
-    <Layout>
-      <MypageWrapper>
-        <Header>
-          <Back
+    <MypageWrapper>
+      <Header>
+        <BackClick>
+          <img
             src={backIcon}
             onClick={() => {
               navigate(-1);
             }}
           />
-          <HeaderTitle>마이 페이지</HeaderTitle>
-        </Header>
-        {Profile?.map((item) => (
-          <ProfileWrapper key={item.id}>
-            <ProfileContainer>
-              <ProfileImage>
-                <img src={item.userProfile} alt="프로필 이미지" />
-              </ProfileImage>
-              <ProfileAge>{item.age} </ProfileAge>
-              <ProfileName>{item.userName} </ProfileName>
-              <ProfileMessage>{item.message}</ProfileMessage>
-              <MeetingCount>
-                <PreMeeting>
-                  {item.preMeeting}
-                  <Text>곧 다가올 추억여행</Text>
-                </PreMeeting>
-                <Divider />
-                <PostMeeting>
-                  {item.postMeeting}
-                  <Text>지나간 추억여행</Text>
-                </PostMeeting>
-              </MeetingCount>
-            </ProfileContainer>
+        </BackClick>
 
-            <FeedContainer>
-              <Title>{item.userName}님의 </Title>
-              <TitleSecond>추억여행 이야기</TitleSecond>
-            </FeedContainer>
-          </ProfileWrapper>
-        ))}
-      </MypageWrapper>
-    </Layout>
+        <HeaderTitle>마이 페이지</HeaderTitle>
+      </Header>
+      {Profile?.map((item) => (
+        <ProfileWrapper key={item.id}>
+          <ProfileContainer>
+            <ProfileImage>
+              <img src={item.userProfile} alt="프로필 이미지" />
+            </ProfileImage>
+            <ProfileAge>{item.age} </ProfileAge>
+            <ProfileName>{item.userName} </ProfileName>
+            <ProfileMessage>{item.message}</ProfileMessage>
+            <MeetingCount>
+              <PreMeeting>
+                {item.preMeeting}
+                <Text>곧 다가올 추억여행</Text>
+              </PreMeeting>
+              <Divider />
+              <PostMeeting>
+                {item.postMeeting}
+                <Text>지나간 추억여행</Text>
+              </PostMeeting>
+            </MeetingCount>
+          </ProfileContainer>
+
+          <FeedContainer>
+            <Title>{item.userName}님의 </Title>
+            <TitleSecond>추억여행 이야기</TitleSecond>
+          </FeedContainer>
+        </ProfileWrapper>
+      ))}
+    </MypageWrapper>
   );
 };
 export default MypageProfile;
@@ -61,7 +64,7 @@ const Header = styled.div`
   height: 4.9rem;
   margin-bottom: 3.2rem;
 `;
-const Back = styled.img`
+const BackClick = styled.span`
   width: 2.4rem;
   height: 2.4rem;
   padding: 0.55rem 0.84em 0.65rem 0.84rem;
@@ -143,14 +146,13 @@ const Text = styled.div`
 const FeedContainer = styled.div`
   display: flex;
   flex-direction: column;
+  margin-left: 1.6rem;
 `;
 const Title = styled.h1`
-  margin-right: 0.8rem;
   margin-top: 7rem;
   ${theme.fonts.headline1};
 `;
 const TitleSecond = styled.h1`
-  margin-right: 0.8rem;
   margin-bottom: 1.2rem;
   ${theme.fonts.headline1};
 `;

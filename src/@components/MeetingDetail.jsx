@@ -2,8 +2,10 @@ import styled from "styled-components";
 import React from "react";
 import { userIcon, backIcon } from "../assets";
 import { theme } from "../style/theme";
+import { useNavigate } from "react-router-dom";
 const MeetingDetail = (props) => {
   const { meetingList } = props;
+  const navigate = useNavigate();
 
   return (
     <DetailWrapper>

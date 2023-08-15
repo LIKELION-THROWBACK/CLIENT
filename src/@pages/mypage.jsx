@@ -2,7 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import MypageProfile from "./../@components/MypageProfile";
 import { profileImg } from "../assets";
-import Feed from "../@components/Feed";
+import MypageFeed from "../@components/MypageFeed";
+import Layout from "../@components/Layout";
 const Mypage = () => {
   const Profile = [
     {
@@ -15,13 +16,35 @@ const Mypage = () => {
       postMeeting: "5",
     },
   ];
+  const reviewList = [
+    {
+      id: 1,
+      title: "창경궁 투어 후기",
+      review:
+        "어제 저녁에 친구분들과 함계 다녀왔어어제 저녁에 친구분들과 함계 다녀왔어어제 저녁에 친구분들과 함계 다녀왔어어제 저녁에 친구분들과 함계 다녀왔어",
+      date: "2024.03.12",
+      before: "10분전",
+      // reviewImage: { reviewImg },
+    },
+    {
+      id: 2,
+      title: "서강대 투어 후기",
+      review:
+        "어제 저녁에 친구분들과 함계 다녀왔어어제 저녁에 친구분들과 함계 다녀왔어어제 저녁에 친구분들과 함계 다녀왔어어제 저녁에 친구분들과 함계 다녀왔어",
+      date: "2024.03.12",
+      before: "12분전",
+      // reviewImage: { reviewImg },
+    },
+  ];
   return (
-    <ContentSection>
-      <TitleSection>
-        <MypageProfile Profile={Profile} />
-        <Feed />
-      </TitleSection>
-    </ContentSection>
+    <Layout>
+      <ContentSection>
+        <TitleSection>
+          <MypageProfile Profile={Profile} />
+          <MypageFeed reviewList={reviewList} />
+        </TitleSection>
+      </ContentSection>
+    </Layout>
   );
 };
 export default Mypage;
@@ -29,6 +52,7 @@ const ContentSection = styled.div`
   width: 32.7rem;
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 const TitleSection = styled.div`
   display: flex;
