@@ -5,11 +5,11 @@ import { backIcon, lessIcon, moreIcon } from "../assets";
 import { useRecoilState } from "recoil";
 import Footer from "../@components/Footer";
 import ModalPortal from "../@components/ModalPortal";
-import MeetModal from "../@components/MeetModal";
-import { isModalOpen } from "../atoms/selector";
+import MakeModal from "../@components/MakeModal";
+import { isMakeModalOpen } from "../atoms/selector";
 
 const Openmeeting = () => {
-  const [modalOpen, setModalOpen] = useRecoilState(isModalOpen);
+  const [modalOpen, setModalOpen] = useRecoilState(isMakeModalOpen);
 
   const [title, setTitle] = useState("");
   const [imageSource, setImageSource] = useState(null);
@@ -132,7 +132,7 @@ const Openmeeting = () => {
       </Button>
       {modalOpen && (
         <ModalPortal>
-          <MeetModal onClose={HandleModalShow} />
+          <MakeModal onClose={HandleModalShow} />
         </ModalPortal>
       )}
     </Wrapper>
