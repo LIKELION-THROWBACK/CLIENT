@@ -5,20 +5,30 @@ import { userIcon, homeIcon, plusIcon } from "../assets";
 import { useNavigate } from "react-router-dom";
 const Footer = () => {
   const navigate = useNavigate();
-  const handleOpenMeet = () => {
-    navigate(`/openmeeting`);
+  const handleNavigate = (navigateCase) => {
+    switch (navigateCase) {
+      case "openmeeting":
+        navigate(`/openmeeting`);
+        break;
+      case "mypage":
+        navigate(`/mypage`);
+        break;
+      case "home":
+        navigate(`/`);
+        break;
+    }
   };
   return (
     <FooterWrapper>
-      <FooterSection>
+      <FooterSection onClick={() => handleNavigate("home")}>
         <Icon src={homeIcon} alt="홈 아이콘" />
         <IconText>홈</IconText>
       </FooterSection>
-      <FooterSection onClick={handleOpenMeet}>
+      <FooterSection onClick={() => handleNavigate("openmeeting")}>
         <Icon src={plusIcon} alt="추가 아이콘" />
         <IconText>추억 만들기</IconText>
       </FooterSection>
-      <FooterSection>
+      <FooterSection onClick={() => handleNavigate("mypage")}>
         <Icon src={userIcon} alt="사용자 아이콘" />
         <IconText>마이페이지</IconText>
       </FooterSection>
