@@ -13,26 +13,6 @@ import { useEffect } from "react";
 const Home = () => {
   const [meetList, setMeetList] = useState([]);
   const name = "이미정";
-  const meetingList = [
-    {
-      id: 1,
-      img: { meetingImg },
-      title: "고무줄 놀이 할 사람 ~",
-      userName: "강민석",
-      userProfile: { profileImg },
-      date: "08.01-08.03",
-      people: 3,
-    },
-    {
-      id: 2,
-      img: { meetingImg },
-      title: "창경궁 갈 사람",
-      userName: "정고으니",
-      userProfile: { profileImg },
-      date: "08.10-08.11",
-      people: 10,
-    },
-  ];
   const nowadaysList = [
     { id: 1, title: "식당에서는 키오스크!", subtitle: "어떻게 사용하는지 다 알려드려요" },
     { id: 2, title: "MZ는 이렇게 시킨다", subtitle: "배송도 쉽고 빠르게 핸드폰으로!" },
