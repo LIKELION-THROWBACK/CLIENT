@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Layout from "../@components/Layout";
 import styled from "styled-components";
 import { theme } from "../style/theme";
@@ -8,8 +8,10 @@ import NowadaysSlider from "../@components/NowadaysSlider";
 import ReviewSlider from "../@components/ReviewSlider";
 import { profileImg, meetingImg } from "../assets";
 import { getMeetList } from "../api/getMeetList";
+import { getReviewList } from "../api/getReviewList";
 import { useEffect } from "react";
 const Home = () => {
+  const [meetList, setMeetList] = useState([]);
   const name = "이미정";
   const meetingList = [
     {
@@ -69,10 +71,15 @@ const Home = () => {
   };
   async function fetchMeetList() {
     const response = await getMeetList();
+    setMeetList(response);
+  }
+  async function fetchReviewList() {
+    const response = await getReviewList();
     console.log(response);
   }
   useEffect(() => {
     fetchMeetList();
+    fetchReviewList();
   }, []);
   return (
     <Layout>
@@ -83,7 +90,7 @@ const Home = () => {
             <SubTitle>이런 추억여행은 어떠세요?</SubTitle>
             <MoreButton onClick={() => handleNavigate("meetList")}>더보기</MoreButton>
           </TitleSection>
-          <MeetingSlider meetingList={meetingList} />
+          {meetList && <MeetingSlider meetList={meetList} />}
         </ContentSection>
         <Divider />
         <ContentSection>
