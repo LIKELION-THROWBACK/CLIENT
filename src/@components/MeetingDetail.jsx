@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { userIcon, backIcon } from "../assets";
 import { theme } from "../style/theme";
 import { useNavigate } from "react-router-dom";
@@ -9,10 +9,11 @@ import { isApplyModalOpen } from "../atoms/selector";
 import { useRecoilState } from "recoil";
 import { useParams } from "react-router-dom";
 import { getDate } from "../utils/date";
-const MeetingDetail = (props) => {
-  let meetingList = props.meetingList;
+import { getMeetDetail } from "../api/getMeetDetail";
+
+const MeetingDetail = () => {
+  // let meetingList = props.meetingList;
   const { id } = useParams();
-  console.log(meetingList);
   const numericId = parseInt(id) - 1;
 
   const navigate = useNavigate();
@@ -24,7 +25,19 @@ const MeetingDetail = (props) => {
   const HandleModalShow = () => {
     setModalOpen(false);
   };
+  const [meetingList, setMeetDetail] = useState([]);
 
+  async function fetchMeetDetail(id) {
+    console.log(id);
+    const response = await getMeetDetail(id);
+    setMeetDetail(response);
+    console.log(meetingList);
+  }
+  useEffect(() => {
+    if (id) {
+      fetchMeetDetail(id);
+    }
+  }, []);
   return (
     <DetailWrapper>
       <BackClick>
@@ -58,7 +71,8 @@ const MeetingDetail = (props) => {
           <DetailDate>
             <SubText>일정</SubText>
             <span>
-              {getDate(meetingList?.start_date)} - {getDate(meetingList?.end_date)}
+              {getDate(String(meetingList?.start_date).substr(5, 10))} -
+              {getDate(String(meetingList?.end_date).substr(5, 10))}
             </span>
           </DetailDate>
           <DetailPlace>
@@ -74,7 +88,8 @@ const MeetingDetail = (props) => {
           <CollectDate>
             모집일정 |
             <span>
-              {getDate(meetingList?.created_at.substr(0, 10))} - {getDate(meetingList?.start_date.substr(0, 10))}
+              {getDate(String(meetingList?.created_at).substr(5, 10))} -
+              {getDate(String(meetingList?.start_date).substr(5, 10))}
             </span>
           </CollectDate>
           <CountDate>
@@ -130,6 +145,7 @@ const DetailUser = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 3.5rem;
 `;
 const DetailTitle = styled.div`
   margin: 1.6rem;
@@ -138,9 +154,10 @@ const Title = styled.h1`
   ${theme.fonts.subhead2_bold}
 `;
 const User = styled.div`
-  ${theme.fonts.subhead2_semibold}
-  display:flex;
+  ${theme.fonts.subhead2_semibold};
+  display: flex;
   align-items: center;
+  height: 100%;
 `;
 const UserImg = styled.img`
   width: 3.5rem;
@@ -157,8 +174,8 @@ const People = styled.div`
 `;
 const DetailDate = styled.div`
   ${theme.fonts.body3_regular};
-  width: 10rem;
-  height: 7.4rem;
+  width: 11rem;
+  height: 8.4rem;
   display: inline-block;
   align-items: center;
   margin: 0.8rem;
@@ -166,12 +183,12 @@ const DetailDate = styled.div`
 
   background-color: #fbe8ef;
   border-radius: 1.6rem;
-  https:; //port-0-throwback-eu1k2lllcfh9do.sel3.cloudtype.app/api/travel/  padding: 1.6rem;
+  padding: 1.6rem;
 `;
 const DetailPlace = styled.div`
   ${theme.fonts.body3_regular};
-  width: 10rem;
-  height: 7.4rem;
+  width: 11rem;
+  height: 8.4rem;
   display: inline-block;
   align-items: center;
   float: left;
@@ -182,8 +199,8 @@ const DetailPlace = styled.div`
 `;
 const DetailFee = styled.div`
   ${theme.fonts.body3_regular};
-  width: 10rem;
-  height: 7.4rem;
+  width: 11rem;
+  height: 8.4rem;
   display: inline-block;
   align-items: center;
   float: left;

@@ -1,5 +1,5 @@
 export const getDate = (date) => {
-  let resultDate = date.replace(/-/g, ".");
+  let resultDate = String(date).replace(/-/g, ".");
   return resultDate;
   //2023-08-17T05:41:19.635830Z -> 2023.08.17
 };
