@@ -8,7 +8,7 @@ import { manyUserIcon } from "../assets";
 
 const MeetingSlider = (props) => {
   const { meetList } = props;
-  console.log(meetList);
+
   const settings = {
     dots: false,
     infinite: false,
