@@ -33,21 +33,26 @@ const MeetingList = (props) => {
             onClick={() => {
               navigate(`meetdetail/${item.id}`);
             }}>
-            <CardImage src={item.img} alt="추억 여행 이미지" />
+            <CardImage src={item.image} alt="추억 여행 이미지" />
             <CardTextBox>
               <CardTitle>
-                <Title>{item.title}</Title>
+                <Title>{item.name}</Title>
               </CardTitle>
-              <CardPlace>경기도 안산</CardPlace>
-              <CardDate>{item.date}</CardDate>
+
+              <CardDate>
+                {item.start_date} - {item.end_date}
+              </CardDate>
               <UserPeople>
                 <CardUser>
-                  <img src={item.userProfile} />
-                  <span>{item.userName}</span>
+                  <UserImg src={item.host_profile_image} alt="호스트 프로필" />
+
+                  <span>{item.host}</span>
                 </CardUser>
                 <People>
                   <img src={manyUserIcon} alt="여러명 아이콘" />
-                  <span>{item.people}/5</span>
+                  <span>
+                    {item.current_member}/{item.max_participation}
+                  </span>
                 </People>
               </UserPeople>
             </CardTextBox>
@@ -151,20 +156,26 @@ const People = styled.div`
 `;
 const CardUser = styled.div`
   display: flex;
+  align-items: center;
   margin-bottom: 0.4rem;
   ${theme.fonts.body2_regular};
 `;
 const CardDate = styled.div`
   display: flex;
-  ${theme.fonts.body2_medium};
+  ${theme.fonts.body3_medium};
   margin-top: 0.3rem;
 `;
-const CardPlace = styled.div`
-  ${theme.fonts.body2_regular};
-  margin-top: 0.3rem;
-`;
+
 const UserPeople = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 1.6rem;
+  align-items: center;
+`;
+const UserImg = styled.img`
+  width: 2rem;
+  height: 2rem;
+  border-radius: 3rem;
+  background-color: ${theme.colors.gray03};
+  margin: 0.8rem;
 `;

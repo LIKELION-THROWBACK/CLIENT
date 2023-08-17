@@ -15,7 +15,6 @@ const MeetingDetail = (props) => {
 
   const numericId = parseInt(id) - 1;
 
-  console.log(id); //:1
   const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useRecoilState(isApplyModalOpen);
   const HandleModal = () => {
@@ -37,50 +36,54 @@ const MeetingDetail = (props) => {
       </BackClick>
 
       <DeatailSection key={numericId}>
-        <DetailImage src={meetingList[numericId].img} alt="추억 여행 이미지" />
+        <DetailImage src={meetingList[numericId]?.image} alt="추억 여행 이미지" />
 
         <DetailTitle>
-          <Title>{meetingList[numericId].title}</Title>
+          <Title>{meetingList[numericId]?.name}</Title>
         </DetailTitle>
         <DetailUser>
           <User>
-            <img src={meetingList[numericId].userProfile} />
-            <span>{meetingList[numericId].userName}</span>
+            <img src={meetingList[numericId]?.hose_profile_image} />
+            <span>{meetingList[numericId]?.host}</span>
           </User>
           <People>
             <img src={userIcon} alt="여러명 아이콘" />
-            <span>{meetingList[numericId].idpeople}/5</span>
+            <span>
+              {meetingList[numericId]?.current_member}/{meetingList[numericId]?.max_participation}
+            </span>
           </People>
         </DetailUser>
         <DetailBox>
           <DetailDate>
             <SubText>일정</SubText>
-            <span>{id.date}</span>
+            <span>
+              {meetingList[numericId]?.start_date}-{meetingList[numericId]?.end_date}
+            </span>
           </DetailDate>
           <DetailPlace>
             <SubText>장소</SubText>
-            <span>경기도 안산</span>
+            <span>{meetingList[numericId]?.location}</span>
           </DetailPlace>
           <DetailFee>
             <SubText>회비</SubText>
-            <span>무료</span>
+            <span>{meetingList[numericId]?.price}</span>
           </DetailFee>
         </DetailBox>
         <CollectCount>
           <CollectDate>
-            모집일정 | <span>mm.dd - mm.dd</span>
+            모집일정 |{" "}
+            <span>
+              {meetingList[numericId]?.created_at}-{meetingList[numericId]?.start_date}
+            </span>
           </CollectDate>
           <CountDate>
-            <span>D-n</span>
+            <span>D-{meetingList[numericId]?.left_day}</span>
           </CountDate>
         </CollectCount>
         <Divider />
         <DetailText>
           <Text>추억 여행 소개 </Text>
-          <TextBox>
-            어릴 적 부산 해운대에 추억이 있는 사람들의 모임입니다. 회비는 10만원입니다. (국민은행 000000-00-000000
-            권보미) 50대 이상 남녀 부담없이 여행 가요
-          </TextBox>
+          <TextBox>{meetingList[numericId]?.description}</TextBox>
         </DetailText>
       </DeatailSection>
 
@@ -150,8 +153,7 @@ const DetailDate = styled.div`
   align-items: center;
   margin: 0.8rem;
   border-radius: 1.6rem;
-  background-color: #fbe8ef;
-  padding: 1.6rem;
+  https:; //port-0-throwback-eu1k2lllcfh9do.sel3.cloudtype.app/api/travel/  padding: 1.6rem;
 `;
 const DetailPlace = styled.div`
   ${theme.fonts.body3_regular};
