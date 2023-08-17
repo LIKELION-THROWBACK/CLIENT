@@ -7,8 +7,15 @@ import ModalPortal from "./ModalPortal";
 import ApplyModal from "./ApplyModal";
 import { isApplyModalOpen } from "../atoms/selector";
 import { useRecoilState } from "recoil";
+import { useParams } from "react-router-dom";
+
 const MeetingDetail = (props) => {
-  const { meetingList } = props;
+  let meetingList = props.meetingList;
+  const { id } = useParams();
+
+  const numericId = parseInt(id) - 1;
+
+  console.log(id); //:1
   const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useRecoilState(isApplyModalOpen);
   const HandleModal = () => {
@@ -28,56 +35,55 @@ const MeetingDetail = (props) => {
           }}
         />
       </BackClick>
-      {meetingList?.map((item) => (
-        <DeatailSection key={item.id}>
-          <DetailImage src={item.img} alt="추억 여행 이미지" />
-          <DetailContatiner>
-            <DetailTitle>
-              <Title>{item.title}</Title>
-            </DetailTitle>
-            <DetailUser>
-              <User>
-                <img src={item.userProfile} />
-                <span>{item.userName}</span>
-              </User>
-              <People>
-                <img src={userIcon} alt="여러명 아이콘" />
-                <span>{item.people}/5</span>
-              </People>
-            </DetailUser>
-            <DetailBox>
-              <DetailDate>
-                <SubText>일정</SubText>
-                <span>{item.date}</span>
-              </DetailDate>
-              <DetailPlace>
-                <SubText>장소</SubText>
-                <span>경기도 안산</span>
-              </DetailPlace>
-              <DetailFee>
-                <SubText>회비</SubText>
-                <span>무료</span>
-              </DetailFee>
-            </DetailBox>
-            <CollectCount>
-              <CollectDate>
-                모집일정 | <span>mm.dd - mm.dd</span>
-              </CollectDate>
-              <CountDate>
-                <span>D-n</span>
-              </CountDate>
-            </CollectCount>
-            <Divider />
-            <DetailText>
-              <Text>추억 여행 소개 </Text>
-              <TextBox>
-                어릴 적 부산 해운대에 추억이 있는 사람들의 모임입니다. 회비는 10만원입니다. (국민은행 000000-00-000000
-                권보미) 50대 이상 남녀 부담없이 여행 가요
-              </TextBox>
-            </DetailText>
-          </DetailContatiner>
-        </DeatailSection>
-      ))}
+
+      <DeatailSection key={numericId}>
+        <DetailImage src={meetingList[numericId].img} alt="추억 여행 이미지" />
+
+        <DetailTitle>
+          <Title>{meetingList[numericId].title}</Title>
+        </DetailTitle>
+        <DetailUser>
+          <User>
+            <img src={meetingList[numericId].userProfile} />
+            <span>{meetingList[numericId].userName}</span>
+          </User>
+          <People>
+            <img src={userIcon} alt="여러명 아이콘" />
+            <span>{meetingList[numericId].idpeople}/5</span>
+          </People>
+        </DetailUser>
+        <DetailBox>
+          <DetailDate>
+            <SubText>일정</SubText>
+            <span>{id.date}</span>
+          </DetailDate>
+          <DetailPlace>
+            <SubText>장소</SubText>
+            <span>경기도 안산</span>
+          </DetailPlace>
+          <DetailFee>
+            <SubText>회비</SubText>
+            <span>무료</span>
+          </DetailFee>
+        </DetailBox>
+        <CollectCount>
+          <CollectDate>
+            모집일정 | <span>mm.dd - mm.dd</span>
+          </CollectDate>
+          <CountDate>
+            <span>D-n</span>
+          </CountDate>
+        </CollectCount>
+        <Divider />
+        <DetailText>
+          <Text>추억 여행 소개 </Text>
+          <TextBox>
+            어릴 적 부산 해운대에 추억이 있는 사람들의 모임입니다. 회비는 10만원입니다. (국민은행 000000-00-000000
+            권보미) 50대 이상 남녀 부담없이 여행 가요
+          </TextBox>
+        </DetailText>
+      </DeatailSection>
+
       <ConfirmBtn onClick={HandleModal}>함께 추억 만들기</ConfirmBtn>
       {modalOpen && (
         <ModalPortal>
@@ -91,7 +97,6 @@ export default MeetingDetail;
 const DetailWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 37.5rem;
 `;
 const BackClick = styled.span`
   width: 2.4rem;
@@ -100,22 +105,21 @@ const BackClick = styled.span`
 `;
 
 const DeatailSection = styled.div`
-  width: 37.5rem;
+  display: flex;
+  flex-direction: column;
 `;
 const DetailImage = styled.img`
   width: 37.5rem;
   height: 31.1rem;
   display: flex;
-  justify-content: center;
   align-items: start;
   border-bottom-left-radius: 1.6rem;
   border-bottom-right-radius: 1.6rem;
   background-color: ${theme.colors.gray03};
 `;
-const DetailContatiner = styled.div``;
 const DetailBox = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
 `;
 const DetailUser = styled.div`
   margin: 1.6rem;
@@ -146,7 +150,7 @@ const DetailDate = styled.div`
   align-items: center;
   margin: 0.8rem;
   border-radius: 1.6rem;
-  background-color: ${theme.colors.gray03};
+  background-color: #fbe8ef;
   padding: 1.6rem;
 `;
 const DetailPlace = styled.div`
@@ -158,7 +162,7 @@ const DetailPlace = styled.div`
   float: left;
   margin: 0.8rem;
   border-radius: 1.6rem;
-  background-color: ${theme.colors.gray03};
+  background-color: #fbe8ef;
   padding: 1.6rem;
 `;
 const DetailFee = styled.div`
@@ -170,7 +174,7 @@ const DetailFee = styled.div`
   float: left;
   margin: 0.8rem;
   border-radius: 1.6rem;
-  background-color: ${theme.colors.gray03};
+  background-color: #fbe8ef;
   padding: 1.6rem;
 `;
 
@@ -188,7 +192,7 @@ const CollectCount = styled.div`
   align-items: center;
   margin: 1.6rem;
   padding: 1.6rem;
-  border: solid 0.1rem ${theme.colors.gray05};
+  border: solid 0.2rem #fbe8ef;
   border-radius: 0.8rem;
 `;
 const CountDate = styled.div`
@@ -212,7 +216,7 @@ const TextBox = styled.div`
   ${theme.fonts.body3_regular};
   margin-top: 1.6rem;
   padding: 1.6rem;
-  background-color: ${theme.colors.gray03};
+  background-color: #fbe8ef;
   border-radius: 0.8rem;
 `;
 const ConfirmBtn = styled.div`
