@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Layout from "../@components/Layout";
 import styled from "styled-components";
 import { theme } from "../style/theme";
@@ -8,50 +8,15 @@ import NowadaysSlider from "../@components/NowadaysSlider";
 import ReviewSlider from "../@components/ReviewSlider";
 import { profileImg, meetingImg } from "../assets";
 import { getMeetList } from "../api/getMeetList";
+import { getReviewList } from "../api/getReviewList";
+import { useEffect } from "react";
 const Home = () => {
-  getMeetList();
+  const [meetList, setMeetList] = useState([]);
+  const [reviewList, setReviewList] = useState([]);
   const name = "이미정";
-  const meetingList = [
-    {
-      id: 1,
-      img: { meetingImg },
-      title: "고무줄 놀이 할 사람 ~",
-      userName: "강민석",
-      userProfile: { profileImg },
-      date: "08.01-08.03",
-      people: 3,
-    },
-    {
-      id: 2,
-      img: { meetingImg },
-      title: "창경궁 갈 사람",
-      userName: "정고으니",
-      userProfile: { profileImg },
-      date: "08.10-08.11",
-      people: 10,
-    },
-  ];
   const nowadaysList = [
     { id: 1, title: "식당에서는 키오스크!", subtitle: "어떻게 사용하는지 다 알려드려요" },
     { id: 2, title: "MZ는 이렇게 시킨다", subtitle: "배송도 쉽고 빠르게 핸드폰으로!" },
-  ];
-  const reviewList = [
-    {
-      id: 1,
-      title: "창경궁 투어 후기",
-      review:
-        "어제 저녁에 친구분들과 함계 다녀왔어어제 저녁에 친구분들과 함계 다녀왔어어제 저녁에 친구분들과 함계 다녀왔어어제 저녁에 친구분들과 함계 다녀왔어",
-      date: "2024.03.12",
-      before: "10분전",
-    },
-    {
-      id: 2,
-      title: "서강대 투어 후기",
-      review:
-        "어제 저녁에 친구분들과 함계 다녀왔어어제 저녁에 친구분들과 함계 다녀왔어어제 저녁에 친구분들과 함계 다녀왔어어제 저녁에 친구분들과 함계 다녀왔어",
-      date: "2024.03.12",
-      before: "12분전",
-    },
   ];
   const navigate = useNavigate();
   const handleNavigate = (navigateCase) => {
@@ -67,6 +32,18 @@ const Home = () => {
         break;
     }
   };
+  async function fetchMeetList() {
+    const response = await getMeetList();
+    setMeetList(response);
+  }
+  async function fetchReviewList() {
+    const response = await getReviewList();
+    setReviewList(response);
+  }
+  useEffect(() => {
+    fetchMeetList();
+    fetchReviewList();
+  }, []);
   return (
     <Layout>
       <HomeWrapper>
@@ -76,7 +53,7 @@ const Home = () => {
             <SubTitle>이런 추억여행은 어떠세요?</SubTitle>
             <MoreButton onClick={() => handleNavigate("meetList")}>더보기</MoreButton>
           </TitleSection>
-          <MeetingSlider meetingList={meetingList} />
+          {meetList && <MeetingSlider meetList={meetList} />}
         </ContentSection>
         <Divider />
         <ContentSection>
