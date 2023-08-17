@@ -10,6 +10,7 @@ import { isMakeModalOpen } from "../atoms/selector";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
+
 const Openmeeting = () => {
   const [modalOpen, setModalOpen] = useRecoilState(isMakeModalOpen);
   const navigate = useNavigate();
@@ -95,12 +96,14 @@ const Openmeeting = () => {
   return (
     <Wrapper>
       <Header>
-        <Back
-          src={backIcon}
-          onClick={() => {
-            navigate(-1);
-          }}
-        />
+        <Back>
+          <img
+            src={backIcon}
+            onClick={() => {
+              navigate(-1);
+            }}
+          />
+        </Back>
         <HeaderTitle>추억 여행 만들기</HeaderTitle>
       </Header>
       <div>
@@ -194,7 +197,7 @@ const Header = styled.div`
   height: 4.9rem;
   margin-bottom: 5.5rem;
 `;
-const Back = styled.img`
+const Back = styled.span`
   width: 2.4rem;
   height: 2.4rem;
   padding: 0.55rem 0.84em 0.65rem 0.84rem;

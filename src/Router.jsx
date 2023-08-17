@@ -12,12 +12,12 @@ export default function Router() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/meetList" element={<MeetList />} />
+        <Route path="/meetList/*" element={<MeetList />} />
         <Route path="/review" element={<Review />} />
         <Route path="/nowadays" element={<Nowadays />} />
         <Route path="/openmeeting" element={<Openmeeting />} />
-        <Route path="/meetdetail" element={<MeetDetail />} />
         <Route path="/mypage" element={<Mypage />} />
+        <Route path="/meetdetail/:id/*" element={<MeetDetail />} />
       </Routes>
     </BrowserRouter>
   );

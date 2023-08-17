@@ -114,7 +114,7 @@ const MeetingCount = styled.div`
   justify-content: center;
   align-items: center;
   margin: 1.6rem;
-  background-color: ${theme.colors.gray05};
+  background-color: #fbe8ef;
   box-shadow: 0px 6px 16px 0px rgba(180, 188, 201, 0.12);
   border-radius: 0.8rem;
   padding: 0.4rem;
