@@ -1,7 +1,15 @@
 import React from "react";
 import { logoIcon, logoTitleIcon } from "../assets";
 import styled from "styled-components";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 const Onboarding = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    setTimeout(() => {
+      navigate(`/onboardingStep`);
+    }, 1500);
+  }, []);
   return (
     <Wrapper>
       <Logo src={logoIcon} alt="로고" />
@@ -9,7 +17,6 @@ const Onboarding = () => {
     </Wrapper>
   );
 };
-
 export default Onboarding;
 const Wrapper = styled.div`
   display: flex;
