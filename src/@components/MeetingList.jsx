@@ -4,11 +4,13 @@ import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 import { theme } from "../style/theme";
 import { backIcon, manyUserIcon } from "../assets";
-import { useNavigate } from "react-router-dom";
-
+import { useNavigate, useParams } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import MeetDetail from "../@pages/meetdetail";
 const MeetingList = (props) => {
   const navigate = useNavigate();
   const { meetingList } = props;
+
   return (
     <ListWrapper>
       <SearchSection>
@@ -26,7 +28,11 @@ const MeetingList = (props) => {
       </SearchSection>
       <ListSection>
         {meetingList?.map((item) => (
-          <CardContainer key={item.id}>
+          <CardContainer
+            key={item.id}
+            onClick={() => {
+              navigate(`meetdetail/${item.id}`);
+            }}>
             <CardImage src={item.img} alt="추억 여행 이미지" />
             <CardTextBox>
               <CardTitle>
@@ -54,9 +60,8 @@ const MeetingList = (props) => {
 
 export default MeetingList;
 const ListWrapper = styled.div`
-  width: 37.5rem;
-  overflow-x: hidden;
-  overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
 `;
 
 const SearchSection = styled.div`
@@ -92,7 +97,7 @@ const TextInput = styled.input`
   justify-content: space-evenly;
 `;
 const ListSection = styled.div`
-  width: 40rem;
+  width: 34rem;
 `;
 
 const CardContainer = styled.div`

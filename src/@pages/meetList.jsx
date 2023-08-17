@@ -1,9 +1,10 @@
 import React from "react";
 import Layout from "../@components/Layout";
 import MeetingList from "../@components/MeetingList";
+import MeetDetail from "../@pages/meetdetail";
 import styled from "styled-components";
 import { profileImg, meetingImg } from "../assets";
-
+import { Route, Routes } from "react-router-dom";
 const MeetList = () => {
   const meetingList = [
     {
@@ -29,9 +30,10 @@ const MeetList = () => {
   return (
     <Layout>
       <ContentSection>
-        <TitleSection>
-          <MeetingList meetingList={meetingList} />
-        </TitleSection>
+        <Routes>
+          <Route path="/" element={<MeetingList meetingList={meetingList} />} />
+          <Route path="/meetdetail/:id/*" element={<MeetDetail meetingList={meetingList} />} />
+        </Routes>
       </ContentSection>
     </Layout>
   );
@@ -39,13 +41,8 @@ const MeetList = () => {
 
 export default MeetList;
 const ContentSection = styled.div`
-  width: 32.7rem;
   display: flex;
   flex-direction: column;
-`;
-const TitleSection = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 2.4rem;
+  align-items: center;
+  margin-bottom: 12rem;
 `;
