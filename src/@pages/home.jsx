@@ -12,48 +12,11 @@ import { getReviewList } from "../api/getReviewList";
 import { useEffect } from "react";
 const Home = () => {
   const [meetList, setMeetList] = useState([]);
+  const [reviewList, setReviewList] = useState([]);
   const name = "이미정";
-  const meetingList = [
-    {
-      id: 1,
-      img: { meetingImg },
-      title: "고무줄 놀이 할 사람 ~",
-      userName: "강민석",
-      userProfile: { profileImg },
-      date: "08.01-08.03",
-      people: 3,
-    },
-    {
-      id: 2,
-      img: { meetingImg },
-      title: "창경궁 갈 사람",
-      userName: "정고으니",
-      userProfile: { profileImg },
-      date: "08.10-08.11",
-      people: 10,
-    },
-  ];
   const nowadaysList = [
     { id: 1, title: "식당에서는 키오스크!", subtitle: "어떻게 사용하는지 다 알려드려요" },
     { id: 2, title: "MZ는 이렇게 시킨다", subtitle: "배송도 쉽고 빠르게 핸드폰으로!" },
-  ];
-  const reviewList = [
-    {
-      id: 1,
-      title: "창경궁 투어 후기",
-      review:
-        "어제 저녁에 친구분들과 함계 다녀왔어어제 저녁에 친구분들과 함계 다녀왔어어제 저녁에 친구분들과 함계 다녀왔어어제 저녁에 친구분들과 함계 다녀왔어",
-      date: "2024.03.12",
-      before: "10분전",
-    },
-    {
-      id: 2,
-      title: "서강대 투어 후기",
-      review:
-        "어제 저녁에 친구분들과 함계 다녀왔어어제 저녁에 친구분들과 함계 다녀왔어어제 저녁에 친구분들과 함계 다녀왔어어제 저녁에 친구분들과 함계 다녀왔어",
-      date: "2024.03.12",
-      before: "12분전",
-    },
   ];
   const navigate = useNavigate();
   const handleNavigate = (navigateCase) => {
@@ -75,7 +38,7 @@ const Home = () => {
   }
   async function fetchReviewList() {
     const response = await getReviewList();
-    console.log(response);
+    setReviewList(response);
   }
   useEffect(() => {
     fetchMeetList();

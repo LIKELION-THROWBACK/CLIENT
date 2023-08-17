@@ -4,9 +4,11 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 import { theme } from "../style/theme";
+import { getDate, elapsedTime } from "../utils/date";
 
 const ReviewSlider = (props) => {
   const { reviewList } = props;
+  console.log(reviewList);
   const settings = {
     dots: false,
     infinite: false,
@@ -23,13 +25,13 @@ const ReviewSlider = (props) => {
         <StyledSlider {...settings}>
           {reviewList?.map((item) => (
             <CardContainer key={item.id}>
-              <UserImage />
+              <UserImage src={item.user.profile_image} alt="프로필 이미지" />
               <CardTextBox>
                 <CardTitle>{item.title}</CardTitle>
-                <Content>{item.review}</Content>
+                <Content>{item.description}</Content>
                 <DateWrapper>
-                  <Date>{item.date}</Date>
-                  <DateBefore>{item.before}</DateBefore>
+                  <Date>{getDate(item.travel.start_date)}</Date>
+                  <DateBefore>{elapsedTime(item.created_at)}</DateBefore>
                 </DateWrapper>
               </CardTextBox>
             </CardContainer>
@@ -70,10 +72,9 @@ const CardContainer = styled.div`
   border-radius: 0.8rem;
   cursor: pointer;
 `;
-const UserImage = styled.div`
+const UserImage = styled.img`
   height: 4.3rem;
   width: 4.3rem;
-  background-color: ${theme.colors.gray06};
   border: none;
   border-radius: 10rem;
 `;
