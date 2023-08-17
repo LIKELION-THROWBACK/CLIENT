@@ -5,14 +5,22 @@ import { theme } from "../style/theme";
 import { isMakeModalOpen } from "../atoms/selector";
 import { completeIcon } from "../assets";
 import { useNavigate } from "react-router-dom";
-
-function MakeModal({ onClose }) {
+import { postMeeting } from "../api/postMeeting";
+import { useEffect } from "react";
+function MakeModal({ onClose, data }) {
   const [modalOpen, setModalOpen] = useRecoilState(isMakeModalOpen);
   const navigate = useNavigate();
   const handleOpen = () => {
     setModalOpen(false);
+    fetchPostMeeting(data);
     navigate("/");
   };
+  async function fetchPostMeeting(data) {
+    console.log("dataa", data);
+    const response = await postMeeting(data);
+    console.log(response);
+    // response.code === 200 && navigate("/loading");
+  }
   return (
     <ModalSection>
       <ModalBackground />

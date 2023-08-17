@@ -10,7 +10,6 @@ import { isMakeModalOpen } from "../atoms/selector";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
-
 const Openmeeting = () => {
   const [modalOpen, setModalOpen] = useRecoilState(isMakeModalOpen);
   const navigate = useNavigate();
@@ -35,16 +34,17 @@ const Openmeeting = () => {
     reader.onloadend = () => {
       setImageSource(reader.result);
     };
-    // const formData = new FormData();
-    // formData.append('files', e.target.files[0]);
+    const formData = new FormData();
+    formData.append("files", e.target.files[0]);
+
     // 서버 axios로 전달
     // await axios({
     //   method: 'post',
     //   url: '/api/files/images',
     //   data: formData,
-    //   headers: {
-    //     'Content-Type': 'multipart/form-data',
-    //   },
+    // headers: {
+    //   'Content-Type': 'multipart/form-data',
+    // },
     // });
   };
   const handleMorePeople = () => {
@@ -80,11 +80,12 @@ const Openmeeting = () => {
     if (title && imageSource && people && startDate && endDate && place && money && description) {
       setIsFormValid(true);
       setData({
-        host: "강민석",
+        members: ["이미정"],
+        host: "이미정",
         name: title,
-        image: imageSource,
+        // image: imageSource,
+        image: null,
         location: place,
-        deadline: endDate,
         start_date: startDate,
         end_date: endDate,
         max_participation: people,
@@ -177,7 +178,7 @@ const Openmeeting = () => {
 
       {modalOpen && (
         <ModalPortal>
-          <MakeModal onClose={HandleModalShow} />
+          <MakeModal onClose={HandleModalShow} data={data} />
         </ModalPortal>
       )}
     </Wrapper>
