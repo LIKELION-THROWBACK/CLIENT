@@ -4,8 +4,12 @@ import { backIcon } from "../assets";
 import { theme } from "../style/theme";
 import { useNavigate } from "react-router-dom";
 import Footer from "../@components/Footer";
+import { nowadaysList } from "../dummy/nowadaysData";
 const Nowadays = () => {
   const navigate = useNavigate();
+  const handleClick = (id) => {
+    navigate(`/nowadaysDetail/${id}`);
+  };
   return (
     <Wrapper>
       <Header>
@@ -17,13 +21,15 @@ const Nowadays = () => {
         />
         <HeaderTitle>요즘엔 이래요!</HeaderTitle>
       </Header>
-      <Container>
-        <Text>
-          식당에서는
-          <br />
-          키오스크로 주문하지~
-        </Text>
-      </Container>
+      {nowadaysList.map((item) => (
+        <CardContainer image={item.img} key={item.id} onClick={() => handleClick(item.id)}>
+          {/* <Image src={item.img} alt="아티클 이미지" /> */}
+          <CardTextBox>
+            <CardTitle>{item.title}</CardTitle>
+            <CardSubTitle>{item.subtitle}</CardSubTitle>
+          </CardTextBox>
+        </CardContainer>
+      ))}
       <Footer />
     </Wrapper>
   );
@@ -51,16 +57,28 @@ const Back = styled.img`
 const HeaderTitle = styled.h1`
   ${theme.fonts.subhead2_semibold}
 `;
-const Container = styled.div`
+const CardContainer = styled.div`
   display: flex;
   align-items: flex-end;
   width: 32.7rem;
   height: 16.2rem;
-  background-color: ${theme.colors.gray03};
+  background-image: url(${(props) => props.image});
+  background-size: 32.7rem 16.2rem;
+  object-fit: fill;
+  border: none;
+  border-radius: 0.8rem;
+  margin-bottom: 2.4rem;
+`;
+const Image = styled.img`
+  position: fixed;
+
+  width: 32.7rem;
+  height: 16.2rem;
   border: none;
   border-radius: 0.8rem;
 `;
-const Text = styled.div`
+const CardTextBox = styled.div`
+  display: relative;
   width: 32.7rem;
   height: 6.4rem;
   padding: 0.8rem 2rem;
@@ -68,4 +86,16 @@ const Text = styled.div`
   ${theme.fonts.body1_medium};
   color: ${theme.colors.white};
   border-radius: 0rem 0rem 0.8rem 0.8rem;
+`;
+const CardTitle = styled.div`
+  ${theme.fonts.body1_medium};
+  color: ${theme.colors.white};
+`;
+const CardSubTitle = styled.h2`
+  width: 100%;
+  height: 2rem;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  ${theme.fonts.body2_regular};
+  color: ${theme.colors.white};
 `;

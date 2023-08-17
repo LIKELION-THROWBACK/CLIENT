@@ -10,3 +10,5 @@ export { default as completeIcon } from "./complete.svg";
 //사진
 export { default as profileImg } from "./profile.svg";
 export { default as meetingImg } from "./meeting.svg";
+export { default as article01Img } from "./article01.png";
+export { default as article02Img } from "./article02.jpeg";
