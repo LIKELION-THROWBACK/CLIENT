@@ -8,7 +8,7 @@ import ModalPortal from "../@components/ModalPortal";
 import MakeModal from "../@components/MakeModal";
 import { isMakeModalOpen } from "../atoms/selector";
 import { useNavigate } from "react-router-dom";
-
+import { useEffect } from "react";
 
 const Openmeeting = () => {
   const [modalOpen, setModalOpen] = useRecoilState(isMakeModalOpen);
@@ -16,10 +16,13 @@ const Openmeeting = () => {
   const [title, setTitle] = useState("");
   const [imageSource, setImageSource] = useState(null);
   const [people, setPeople] = useState(0);
-  const [date, setDate] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const [place, setPlace] = useState("");
-  const [money, setmoney] = useState(0);
+  const [money, setMoney] = useState(0);
   const [description, setDescription] = useState("");
+  const [isFormValid, setIsFormValid] = useState(false);
+  const [data, setData] = useState({});
   const handleTitle = (e) => {
     setTitle(e.target.value);
   };
@@ -31,16 +34,17 @@ const Openmeeting = () => {
     reader.onloadend = () => {
       setImageSource(reader.result);
     };
-    // const formData = new FormData();
-    // formData.append('files', e.target.files[0]);
+    const formData = new FormData();
+    formData.append("files", e.target.files[0]);
+
     // 서버 axios로 전달
     // await axios({
     //   method: 'post',
     //   url: '/api/files/images',
     //   data: formData,
-    //   headers: {
-    //     'Content-Type': 'multipart/form-data',
-    //   },
+    // headers: {
+    //   'Content-Type': 'multipart/form-data',
+    // },
     // });
   };
   const handleMorePeople = () => {
@@ -57,7 +61,39 @@ const Openmeeting = () => {
   const HandleModalShow = () => {
     setModalOpen(false);
   };
-
+  const handleStartDate = (e) => {
+    setStartDate(e.target.value);
+  };
+  const handleEndDate = (e) => {
+    setEndDate(e.target.value);
+  };
+  const handlePlace = (e) => {
+    setPlace(e.target.value);
+  };
+  const handleMoney = (e) => {
+    setMoney(e.target.value);
+  };
+  const handleDescription = (e) => {
+    setDescription(e.target.value);
+  };
+  useEffect(() => {
+    if (title && imageSource && people && startDate && endDate && place && money && description) {
+      setIsFormValid(true);
+      setData({
+        members: ["이미정"],
+        host: "이미정",
+        name: title,
+        // image: imageSource,
+        image: null,
+        location: place,
+        start_date: startDate,
+        end_date: endDate,
+        max_participation: people,
+        description: description,
+        price: money,
+      });
+    }
+  }, [title, imageSource, people, startDate, endDate, place, money, description]);
   return (
     <Wrapper>
       <Header>
@@ -107,36 +143,42 @@ const Openmeeting = () => {
         <DateSection>
           <DateBox>
             <Target>시작일</Target>
-            <DateInput type="text" placeholder="ex) 2023.05.13"></DateInput>
+            <DateInput type="text" placeholder="ex) 2023-05-13" onChange={(e) => handleStartDate(e)}></DateInput>
           </DateBox>
           <DateBox>
             <Target>종료일</Target>
-            <DateInput type="text" placeholder="ex) 2023.05.14"></DateInput>
+            <DateInput type="text" placeholder="ex) 2023-05-14" onChange={(e) => handleEndDate(e)}></DateInput>
           </DateBox>
         </DateSection>
       </div>
       <Divider />
       <div>
         <Title>장소</Title>
-        <TextInput type="text" placeholder="모임 장소를 입력하세요"></TextInput>
+        <TextInput type="text" placeholder="모임 장소를 입력하세요" onChange={(e) => handlePlace(e)}></TextInput>
       </div>
       <Divider />
       <div>
         <Title>참가비</Title>
-        <TextInput type="text" placeholder="모임 참가비를 입력하세요 "></TextInput>
+        <TextInput type="text" placeholder="모임 참가비를 입력하세요" onChange={(e) => handleMoney(e)}></TextInput>
       </div>
       <Divider />
       <div>
         <Title>추억 여행 소개</Title>
-        <Description type="text" placeholder="내용을 입력하세요"></Description>
+        <Description type="text" placeholder="내용을 입력하세요" onChange={(e) => handleDescription(e)}></Description>
       </div>
+      {isFormValid ? (
+        <Button type="button" onClick={HandleModal}>
+          추억 여행 만들기
+        </Button>
+      ) : (
+        <DisabledButton type="button" onClick={HandleModal} disabled>
+          추억 여행 만들기
+        </DisabledButton>
+      )}
 
-      <Button type="button" onClick={HandleModal}>
-        추억 여행 만들기
-      </Button>
       {modalOpen && (
         <ModalPortal>
-          <MakeModal onClose={HandleModalShow} />
+          <MakeModal onClose={HandleModalShow} data={data} />
         </ModalPortal>
       )}
     </Wrapper>
@@ -274,6 +316,18 @@ const DateSection = styled.div`
 const DateBox = styled.div`
   display: flex;
   flex-direction: column;
+`;
+const DisabledButton = styled.button`
+  width: 34.3rem;
+  height: 5.8rem;
+  margin-top: 17.2rem;
+  margin-bottom: 2.4rem;
+  border: none;
+  border-radius: 1.6rem;
+  background-color: ${theme.colors.gray03};
+  ${theme.fonts.subhead2_semibold};
+  color: ${theme.colors.white};
+  cursor: pointer;
 `;
 const Button = styled.button`
   width: 34.3rem;
