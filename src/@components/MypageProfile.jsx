@@ -26,7 +26,9 @@ const MypageProfile = (props) => {
         <ProfileContainer>
           <ProfileImage src={Profile.profile_image} alt="프로필 이미지" />
 
-          <ProfileAge>{Profile.age} </ProfileAge>
+          <ProfileAge>
+            {String(Profile.age).substr(1)}학년 {String(Profile.age).substr(1)}반
+          </ProfileAge>
           <ProfileName>{Profile.name} </ProfileName>
           <ProfileMessage>{Profile.description}</ProfileMessage>
           <MeetingCount>
