@@ -9,6 +9,7 @@ import ReviewSlider from "../@components/ReviewSlider";
 import { profileImg, meetingImg } from "../assets";
 import { getMeetList } from "../api/getMeetList";
 import { getReviewList } from "../api/getReviewList";
+import { getMeetDetail } from "../api/getMeetDetail";
 import { useEffect } from "react";
 import { nowadaysList } from "../dummy/nowadaysData";
 const Home = () => {
@@ -37,9 +38,14 @@ const Home = () => {
     const response = await getReviewList();
     setReviewList(response);
   }
+  async function fetchMeetDetail() {
+    const response = await getMeetDetail(5);
+    console.log("졸려", response);
+  }
   useEffect(() => {
     fetchMeetList();
     fetchReviewList();
+    fetchMeetDetail();
   }, []);
   return (
     <Layout>
