@@ -5,10 +5,11 @@ import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 import { theme } from "../style/theme";
 import { manyUserIcon } from "../assets";
+import { useNavigate } from "react-router-dom";
 
 const MeetingSlider = (props) => {
   const { meetList } = props;
-
+  const navigate = useNavigate();
   const settings = {
     dots: false,
     infinite: false,
@@ -24,7 +25,11 @@ const MeetingSlider = (props) => {
       <SliderSection>
         <StyledSlider {...settings}>
           {meetList?.map((item) => (
-            <CardContainer key={item.id}>
+            <CardContainer
+              key={item.id}
+              onClick={() => {
+                navigate(`meetdetail/${item.id}`);
+              }}>
               <CardImage src={item.image} alt="추억 여행 이미지" />
               <CardTextBox>
                 <CardTitle>
