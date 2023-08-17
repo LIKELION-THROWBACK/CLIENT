@@ -7,7 +7,8 @@ import { theme } from "../style/theme";
 import { manyUserIcon } from "../assets";
 
 const MeetingSlider = (props) => {
-  const { meetingList } = props;
+  const { meetList } = props;
+
   const settings = {
     dots: false,
     infinite: false,
@@ -22,19 +23,26 @@ const MeetingSlider = (props) => {
     <SliderWrapper>
       <SliderSection>
         <StyledSlider {...settings}>
-          {meetingList?.map((item) => (
+          {meetList?.map((item) => (
             <CardContainer key={item.id}>
-              <CardImage src={item.img} alt="추억 여행 이미지" />
+              <CardImage src={item.image} alt="추억 여행 이미지" />
               <CardTextBox>
                 <CardTitle>
-                  <Title>{item.title}</Title>
+                  <Title>{item.name}</Title>
                   <People>
                     <img src={manyUserIcon} alt="여러명 아이콘" />
-                    <span>{item.people}/5</span>
+                    <span>
+                      {item.current_member}/{item.max_participation}
+                    </span>
                   </People>
                 </CardTitle>
-                <CardUser>{item.userName}</CardUser>
-                <CardDate>{item.date}</CardDate>
+                <CardUser>
+                  <HostImage src={item.host_profile_image} alt="호스트 이미지" />
+                  <Host>{item.host}</Host>
+                </CardUser>
+                <CardDate>
+                  {item.start_date} - {item.end_date}
+                </CardDate>
               </CardTextBox>
             </CardContainer>
           ))}
@@ -113,6 +121,15 @@ const People = styled.div`
 const CardUser = styled.div`
   display: flex;
   margin-bottom: 0.4rem;
+  gap: 0.5rem;
+`;
+const HostImage = styled.img`
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 10rem;
+`;
+const Host = styled.h2`
   ${theme.fonts.body2_regular};
 `;
 const CardDate = styled.div`

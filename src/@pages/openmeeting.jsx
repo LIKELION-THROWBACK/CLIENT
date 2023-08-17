@@ -7,10 +7,11 @@ import Footer from "../@components/Footer";
 import ModalPortal from "../@components/ModalPortal";
 import MakeModal from "../@components/MakeModal";
 import { isMakeModalOpen } from "../atoms/selector";
+import { useNavigate } from "react-router-dom";
 
 const Openmeeting = () => {
   const [modalOpen, setModalOpen] = useRecoilState(isMakeModalOpen);
-
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [imageSource, setImageSource] = useState(null);
   const [people, setPeople] = useState(0);
