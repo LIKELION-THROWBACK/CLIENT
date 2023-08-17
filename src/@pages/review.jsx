@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { backIcon } from "../assets";
 import { theme } from "../style/theme";
 import { useNavigate } from "react-router-dom";
 import Footer from "../@components/Footer";
-import { css } from "styled-components";
+
+import { getReviewList } from "../api/getReviewList";
+import { useEffect } from "react";
+import { getDate } from "../utils/date";
 const Review = () => {
   const navigate = useNavigate();
+  const [reviewList, setReviewList] = useState([]);
+  async function fetchReviewList() {
+    const response = await getReviewList();
+    setReviewList(response);
+  }
+  useEffect(() => {
+    fetchReviewList();
+  }, []);
   return (
     <Wrapper>
       <Header>
@@ -18,22 +29,23 @@ const Review = () => {
         />
         <HeaderTitle>다른 친구들의 추억 여행 이야기</HeaderTitle>
       </Header>
-      <ReviewContainer>
-        <UserContainer>
-          <UserImage />
-          <User>이미정</User>
-        </UserContainer>
-        <TravelName>20230728 창덕궁 투어 </TravelName>
-        <Image />
-        <Title>창덕궁에서 추억여행~</Title>
-        <Content>
-          오늘은 멋쟁이 동년배들과 창덕궁 산책 한바탕~
-          <br />새 친구를 만들 수 있어서 넘넘 좋아~
-        </Content>
-        <Date>2023년 8월 1일</Date>
-      </ReviewContainer>
-      <Divider />
-
+      {reviewList?.map((item) => (
+        <ReviewContainer key={item.id}>
+          <UserContainer>
+            <UserImage />
+            <User>{item.user.nickname}</User>
+          </UserContainer>
+          <TravelName>
+            {item.travel.start_date} <br />
+            {item.travel.name}
+          </TravelName>
+          <Image />
+          <Title>{item.title}</Title>
+          <Content>{item.description}</Content>
+          <Date>{getDate(item.created_at.substr(0, 10))}</Date>
+          <Divider />
+        </ReviewContainer>
+      ))}
       <Footer />
     </Wrapper>
   );
@@ -83,8 +95,8 @@ const User = styled.span`
 `;
 const TravelName = styled.div`
   display: flex;
-  width: 18.6rem;
-  height: 4rem;
+  width: 23rem;
+  /* height: 4rem; */
   padding: 0.8rem 1.6rem;
   margin-bottom: 1.6rem;
   margin-left: 3.2rem;
