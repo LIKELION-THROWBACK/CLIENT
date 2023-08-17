@@ -40,16 +40,15 @@ const MeetingDetail = () => {
   }, []);
   return (
     <DetailWrapper>
-      <BackClick>
-        <img
-          src={backIcon}
-          onClick={() => {
-            navigate(-1);
-          }}
-        />
-      </BackClick>
-
       <DeatailSection key={numericId}>
+        <BackClick>
+          <img
+            src={backIcon}
+            onClick={() => {
+              navigate(-1);
+            }}
+          />
+        </BackClick>
         <DetailImage src={meetingList?.image} alt="추억 여행 이미지" />
 
         <DetailTitle>

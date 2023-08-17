@@ -5,14 +5,22 @@ import { theme } from "../style/theme";
 import { isApplyModalOpen } from "../atoms/selector";
 import { completeIcon } from "../assets";
 import { useNavigate } from "react-router-dom";
-
+import { postApply } from "../api/postApply";
+import { useParams } from "react-router-dom";
 function ApplyModal({ onClose }) {
+  const { id } = useParams();
   const [modalOpen, setModalOpen] = useRecoilState(isApplyModalOpen);
   const navigate = useNavigate();
   const handleOpen = () => {
     setModalOpen(false);
+    fetchPostApply(id);
     navigate("/");
   };
+  async function fetchPostApply(id) {
+    const response = await postApply(id);
+    console.log(response);
+    // response.code === 200 && navigate("/loading");
+  }
   return (
     <ModalSection>
       <ModalBackground />

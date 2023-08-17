@@ -16,7 +16,7 @@ function MakeModal({ onClose, data }) {
     navigate("/");
   };
   async function fetchPostMeeting(data) {
-    console.log("dataa", data);
+    console.log("data", data);
     const response = await postMeeting(data);
     console.log(response);
     // response.code === 200 && navigate("/loading");
