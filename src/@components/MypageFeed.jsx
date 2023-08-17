@@ -2,24 +2,20 @@ import { styled } from "styled-components";
 import React from "react";
 import { theme } from "../style/theme";
 const MypageFeed = (props) => {
-  const { reviewList } = props;
-
+  const { Profile } = props;
+  console.log(Profile.image);
   return (
     <FeedWrapper>
-      {reviewList?.map((item) => (
-        <FeedContainer key={item.id}>
-          <FeedImage>
-            <img src={item.reviewImg} alt="리뷰이미지" />
-          </FeedImage>
-          <FeedTitle>{item.title}</FeedTitle>
-          <FeedReview>{item.review}</FeedReview>
-          <DateBefore>
-            <FeedDate>{item.date}</FeedDate>
-            <FeedBefore>{item.before}</FeedBefore>
-          </DateBefore>
-          <Divider />
-        </FeedContainer>
-      ))}
+      <FeedContainer key={Profile.id}>
+        <FeedImage src={"https://likeliionthrowback.s3.amazonaws.com/" + Profile.image} alt="리뷰이미지" />
+
+        <FeedTitle>{Profile.title}</FeedTitle>
+        <FeedReview>{Profile.description}</FeedReview>
+        <DateBefore>
+          <FeedDate>{Profile.created_at.substr(0, 10)}</FeedDate>
+        </DateBefore>
+        <Divider />
+      </FeedContainer>
     </FeedWrapper>
   );
 };
@@ -37,7 +33,7 @@ const FeedContainer = styled.div`
   margin: 1.6rem;
   margin-top: 0.8rem;
 `;
-const FeedImage = styled.div`
+const FeedImage = styled.img`
   width: 32.7rem;
   height: 24rem;
   background-color: ${theme.colors.gray05};

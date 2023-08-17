@@ -21,34 +21,32 @@ const MypageProfile = (props) => {
 
         <HeaderTitle>마이 페이지</HeaderTitle>
       </Header>
-      {Profile?.map((item) => (
-        <ProfileWrapper key={item.id}>
-          <ProfileContainer>
-            <ProfileImage>
-              <img src={item.userProfile} alt="프로필 이미지" />
-            </ProfileImage>
-            <ProfileAge>{item.age} </ProfileAge>
-            <ProfileName>{item.userName} </ProfileName>
-            <ProfileMessage>{item.message}</ProfileMessage>
-            <MeetingCount>
-              <PreMeeting>
-                {item.preMeeting}
-                <Text>곧 다가올 추억여행</Text>
-              </PreMeeting>
-              <Divider />
-              <PostMeeting>
-                {item.postMeeting}
-                <Text>지나간 추억여행</Text>
-              </PostMeeting>
-            </MeetingCount>
-          </ProfileContainer>
 
-          <FeedContainer>
-            <Title>{item.userName}님의 </Title>
-            <TitleSecond>추억여행 이야기</TitleSecond>
-          </FeedContainer>
-        </ProfileWrapper>
-      ))}
+      <ProfileWrapper key={Profile.id}>
+        <ProfileContainer>
+          <ProfileImage src={Profile.profile_image} alt="프로필 이미지" />
+
+          <ProfileAge>{Profile.age} </ProfileAge>
+          <ProfileName>{Profile.name} </ProfileName>
+          <ProfileMessage>{Profile.description}</ProfileMessage>
+          <MeetingCount>
+            <PreMeeting>
+              {Profile.upcoming_travels_count}
+              <Text>곧 다가올 추억여행</Text>
+            </PreMeeting>
+            <Divider />
+            <PostMeeting>
+              {Profile.finished_travels_count}
+              <Text>지나간 추억여행</Text>
+            </PostMeeting>
+          </MeetingCount>
+        </ProfileContainer>
+
+        <FeedContainer>
+          <Title>{Profile.nickname}님의 </Title>
+          <TitleSecond>추억여행 이야기</TitleSecond>
+        </FeedContainer>
+      </ProfileWrapper>
     </MypageWrapper>
   );
 };
@@ -84,7 +82,7 @@ const ProfileWrapper = styled.div`
   width: 37.5rem;
 `;
 
-const ProfileImage = styled.div`
+const ProfileImage = styled.img`
   width: 9.5rem;
   height: 9.5rem;
   border-radius: 5rem;
