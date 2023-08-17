@@ -8,11 +8,13 @@ import Openmeeting from "./@pages/openmeeting";
 import MeetDetail from "./@pages/meetdetail";
 import Mypage from "./@pages/mypage";
 import NowadaysDetail from "./@pages/nowadaysDetail";
+import Onboarding from "./@pages/onboarding";
 export default function Router() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Onboarding />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/meetList/*" element={<MeetList />} />
         <Route path="/review" element={<Review />} />
         <Route path="/nowadays" element={<Nowadays />} />
