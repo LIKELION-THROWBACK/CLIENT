@@ -22,7 +22,7 @@ const NowadaysSlider = (props) => {
       <SliderSection>
         <StyledSlider {...settings}>
           {nowadaysList?.map((item) => (
-            <CardContainer key={item.id}>
+            <CardContainer image={item.img} key={item.id}>
               <CardTextBox>
                 <CardTitle>{item.title}</CardTitle>
                 <CardSubTitle>{item.subtitle}</CardSubTitle>
@@ -60,7 +60,9 @@ const CardContainer = styled.div`
   align-items: flex-end;
   border: 1px solid var(--gray-100, #f3f4f6);
   border-radius: 0.8rem;
-  background-color: ${theme.colors.gray01};
+  background-image: url(${(props) => props.image});
+  background-size: 30rem 18.4rem;
+  background-repeat: no-repeat;
   box-shadow: 0px 6px 16px 0px rgba(180, 188, 201, 0.12);
   cursor: pointer;
 `;
@@ -74,7 +76,8 @@ const CardTextBox = styled.div`
   padding-top: 0.8rem;
   padding-bottom: 0.8rem;
   margin-top: 13rem;
-  background-color: rgba(79, 83, 87, 0.5);
+  /* background-color: rgba(79, 83, 87, 0.5); */
+  background-color: rgba(216, 26, 97, 0.8);
   border-radius: 0rem 0rem 0.8rem 0.8rem;
 `;
 const CardTitle = styled.div`

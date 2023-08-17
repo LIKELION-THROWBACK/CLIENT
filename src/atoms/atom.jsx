@@ -1,6 +1,5 @@
 // atom 선언
 import { atom } from "recoil";
-
 export const makeModalOpen = atom({
   key: "makeModalOpen",
   default: false,

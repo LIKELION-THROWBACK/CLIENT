@@ -10,18 +10,11 @@ import { profileImg, meetingImg } from "../assets";
 import { getMeetList } from "../api/getMeetList";
 import { getReviewList } from "../api/getReviewList";
 import { useEffect } from "react";
+import { nowadaysList } from "../dummy/nowadaysData";
 const Home = () => {
   const [meetList, setMeetList] = useState([]);
   const [reviewList, setReviewList] = useState([]);
   const name = "이미정";
-  const nowadaysList = [
-    { id: 1, title: "식당에서는 키오스크로 주문하지", subtitle: "나만 몰랐어? 키오스크 주문법 다 알려드릴게요!" },
-    {
-      id: 2,
-      title: "기차표 예매 이제는 편하게 모바일앱으로!",
-      subtitle: "예매도, 대기도, 번거롭게 서성이던 그 시간은 이제 그만!",
-    },
-  ];
   const navigate = useNavigate();
   const handleNavigate = (navigateCase) => {
     switch (navigateCase) {
