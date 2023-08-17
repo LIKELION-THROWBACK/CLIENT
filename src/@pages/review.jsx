@@ -14,6 +14,7 @@ const Review = () => {
   async function fetchReviewList() {
     const response = await getReviewList();
     setReviewList(response);
+    console.log(reviewList);
   }
   useEffect(() => {
     fetchReviewList();
@@ -32,14 +33,14 @@ const Review = () => {
       {reviewList?.map((item) => (
         <ReviewContainer key={item.id}>
           <UserContainer>
-            <UserImage />
+            <UserImage src={item.user.profile_image} alt="유저 이미지" />
             <User>{item.user.nickname}</User>
           </UserContainer>
           <TravelName>
             {item.travel.start_date} <br />
             {item.travel.name}
           </TravelName>
-          <Image />
+          <Image src={item.image} alt="여행 이미지" />
           <Title>{item.title}</Title>
           <Content>{item.description}</Content>
           <Date>{getDate(item.created_at.substr(0, 10))}</Date>
@@ -83,12 +84,11 @@ const UserContainer = styled.div`
   align-items: center;
   gap: 0.8rem;
 `;
-const UserImage = styled.div`
+const UserImage = styled.img`
   width: 3.2rem;
   height: 3.2rem;
   border: none;
   border-radius: 10rem;
-  background-color: ${theme.colors.gray04};
 `;
 const User = styled.span`
   ${theme.fonts.subhead2_semibold};
@@ -104,13 +104,12 @@ const TravelName = styled.div`
   background: rgba(216, 26, 97, 0.2);
   ${theme.fonts.body1_medium};
 `;
-const Image = styled.div`
+const Image = styled.img`
   width: 32.7rem;
   height: 24rem;
   margin-bottom: 0.8rem;
   border: none;
   border-radius: 0.8rem;
-  background-color: ${theme.colors.gray04};
 `;
 const Title = styled.h1`
   margin-bottom: 0.8rem;

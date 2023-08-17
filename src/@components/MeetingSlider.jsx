@@ -106,6 +106,10 @@ const CardTitle = styled.div`
   margin-bottom: 0.8rem;
 `;
 const Title = styled.h1`
+  width: 20.6rem;
+  height: 3rem;
+  overflow-x: hidden;
+  overflow-y: hidden;
   ${theme.fonts.subhead2_semibold};
 `;
 const People = styled.div`
