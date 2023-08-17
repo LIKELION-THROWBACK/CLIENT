@@ -1,47 +1,28 @@
 import React from "react";
 import styled from "styled-components";
 import MypageProfile from "./../@components/MypageProfile";
-import { profileImg } from "../assets";
 import MypageFeed from "../@components/MypageFeed";
 import Layout from "../@components/Layout";
+import { getMyProfile } from "../api/getMyProfile";
+import { useState, useEffect } from "react";
 const Mypage = () => {
-  const Profile = [
-    {
-      id: 1,
-      userName: "강민석",
-      userProfile: { profileImg },
-      message: "인생은 즉흥적으로~",
-      age: "5학년 6반",
-      preMeeting: "3",
-      postMeeting: "5",
-    },
-  ];
-  const reviewList = [
-    {
-      id: 1,
-      title: "창경궁 투어 후기",
-      review:
-        "어제 저녁에 친구분들과 함계 다녀왔어어제 저녁에 친구분들과 함계 다녀왔어어제 저녁에 친구분들과 함계 다녀왔어어제 저녁에 친구분들과 함계 다녀왔어",
-      date: "2024.03.12",
-      before: "10분전",
-      // reviewImage: { reviewImg },
-    },
-    {
-      id: 2,
-      title: "서강대 투어 후기",
-      review:
-        "어제 저녁에 친구분들과 함계 다녀왔어어제 저녁에 친구분들과 함계 다녀왔어어제 저녁에 친구분들과 함계 다녀왔어어제 저녁에 친구분들과 함계 다녀왔어",
-      date: "2024.03.12",
-      before: "12분전",
-      // reviewImage: { reviewImg },
-    },
-  ];
+  const [Profile, setProfile] = useState([]);
+  async function fetchProfile() {
+    const response = await getMyProfile("6");
+    setProfile(response);
+  }
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
   return (
     <Layout>
       <ContentSection>
         <TitleSection>
           <MypageProfile Profile={Profile} />
-          <MypageFeed reviewList={reviewList} />
+          {Profile?.my_reviews?.map((item) => (
+            <MypageFeed Profile={item} />
+          ))}
         </TitleSection>
       </ContentSection>
     </Layout>

@@ -8,11 +8,11 @@ import ApplyModal from "./ApplyModal";
 import { isApplyModalOpen } from "../atoms/selector";
 import { useRecoilState } from "recoil";
 import { useParams } from "react-router-dom";
-
+import { getDate } from "../utils/date";
 const MeetingDetail = (props) => {
   let meetingList = props.meetingList;
   const { id } = useParams();
-
+  console.log(meetingList);
   const numericId = parseInt(id) - 1;
 
   const navigate = useNavigate();
@@ -24,6 +24,7 @@ const MeetingDetail = (props) => {
   const HandleModalShow = () => {
     setModalOpen(false);
   };
+
   return (
     <DetailWrapper>
       <BackClick>
@@ -36,20 +37,20 @@ const MeetingDetail = (props) => {
       </BackClick>
 
       <DeatailSection key={numericId}>
-        <DetailImage src={meetingList[numericId]?.image} alt="추억 여행 이미지" />
+        <DetailImage src={meetingList?.image} alt="추억 여행 이미지" />
 
         <DetailTitle>
-          <Title>{meetingList[numericId]?.name}</Title>
+          <Title>{meetingList?.name}</Title>
         </DetailTitle>
         <DetailUser>
           <User>
-            <img src={meetingList[numericId]?.hose_profile_image} />
-            <span>{meetingList[numericId]?.host}</span>
+            <UserImg src={meetingList?.host_profile_image} />
+            <span>{meetingList?.host}</span>
           </User>
           <People>
             <img src={userIcon} alt="여러명 아이콘" />
             <span>
-              {meetingList[numericId]?.current_member}/{meetingList[numericId]?.max_participation}
+              {meetingList?.current_member}/{meetingList?.max_participation}
             </span>
           </People>
         </DetailUser>
@@ -57,33 +58,33 @@ const MeetingDetail = (props) => {
           <DetailDate>
             <SubText>일정</SubText>
             <span>
-              {meetingList[numericId]?.start_date}-{meetingList[numericId]?.end_date}
+              {getDate(meetingList?.start_date)} - {getDate(meetingList?.end_date)}
             </span>
           </DetailDate>
           <DetailPlace>
             <SubText>장소</SubText>
-            <span>{meetingList[numericId]?.location}</span>
+            <span>{meetingList?.location}</span>
           </DetailPlace>
           <DetailFee>
             <SubText>회비</SubText>
-            <span>{meetingList[numericId]?.price}</span>
+            <span>{meetingList?.price}원</span>
           </DetailFee>
         </DetailBox>
         <CollectCount>
           <CollectDate>
-            모집일정 |{" "}
+            모집일정 |
             <span>
-              {meetingList[numericId]?.created_at}-{meetingList[numericId]?.start_date}
+              {getDate(meetingList?.created_at.substr(0, 10))} - {getDate(meetingList?.start_date.substr(0, 10))}
             </span>
           </CollectDate>
           <CountDate>
-            <span>D-{meetingList[numericId]?.left_day}</span>
+            <span>D-{meetingList?.left_day}</span>
           </CountDate>
         </CollectCount>
         <Divider />
         <DetailText>
           <Text>추억 여행 소개 </Text>
-          <TextBox>{meetingList[numericId]?.description}</TextBox>
+          <TextBox>{meetingList?.description}</TextBox>
         </DetailText>
       </DeatailSection>
 
@@ -138,6 +139,15 @@ const Title = styled.h1`
 `;
 const User = styled.div`
   ${theme.fonts.subhead2_semibold}
+  display:flex;
+  align-items: center;
+`;
+const UserImg = styled.img`
+  width: 3.5rem;
+  height: 3.5rem;
+  border: none;
+  border-radius: 2rem;
+  background-color: ${theme.colors.gray03};
 `;
 const People = styled.div`
   ${theme.fonts.subhead2_semibold}
@@ -152,6 +162,9 @@ const DetailDate = styled.div`
   display: inline-block;
   align-items: center;
   margin: 0.8rem;
+  float: left;
+
+  background-color: #fbe8ef;
   border-radius: 1.6rem;
   https:; //port-0-throwback-eu1k2lllcfh9do.sel3.cloudtype.app/api/travel/  padding: 1.6rem;
 `;

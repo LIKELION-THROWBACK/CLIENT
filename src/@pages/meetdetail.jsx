@@ -17,7 +17,7 @@ const MeetDetail = () => {
     if (id) {
       fetchMeetDetail(id);
     }
-  }, [id]);
+  }, []);
 
   return (
     <ContentSection>
