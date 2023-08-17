@@ -15,8 +15,12 @@ const Home = () => {
   const [reviewList, setReviewList] = useState([]);
   const name = "이미정";
   const nowadaysList = [
-    { id: 1, title: "식당에서는 키오스크!", subtitle: "어떻게 사용하는지 다 알려드려요" },
-    { id: 2, title: "MZ는 이렇게 시킨다", subtitle: "배송도 쉽고 빠르게 핸드폰으로!" },
+    { id: 1, title: "식당에서는 키오스크로 주문하지", subtitle: "나만 몰랐어? 키오스크 주문법 다 알려드릴게요!" },
+    {
+      id: 2,
+      title: "기차표 예매 이제는 편하게 모바일앱으로!",
+      subtitle: "예매도, 대기도, 번거롭게 서성이던 그 시간은 이제 그만!",
+    },
   ];
   const navigate = useNavigate();
   const handleNavigate = (navigateCase) => {
