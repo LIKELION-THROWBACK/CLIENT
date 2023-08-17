@@ -14,7 +14,7 @@ const Footer = () => {
         navigate(`/mypage`);
         break;
       case "home":
-        navigate(`/`);
+        navigate(`/home`);
         break;
     }
   };
