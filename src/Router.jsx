@@ -10,9 +10,12 @@ import Mypage from "./@pages/mypage";
 import NowadaysDetail from "./@pages/nowadaysDetail";
 import Onboarding from "./@pages/onboarding";
 import OnboardingStep from "./@pages/onboardingStep";
+import ScrollToTop from "./@components/ScrollToTop";
+
 export default function Router() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Onboarding />} />
         <Route path="/onboardingStep" element={<OnboardingStep />} />
