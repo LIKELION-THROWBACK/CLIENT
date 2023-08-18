@@ -50,4 +50,5 @@ const Button = styled.div`
   background-color: ${theme.colors.primary};
   color: ${theme.colors.white};
   ${theme.fonts.subhead2_semibold};
+  cursor: pointer;
 `;

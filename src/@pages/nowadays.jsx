@@ -53,6 +53,7 @@ const Back = styled.img`
   height: 2.4rem;
   padding: 0.55rem 0.84em 0.65rem 0.84rem;
   margin-right: 8.4rem;
+  cursor: pointer;
 `;
 const HeaderTitle = styled.h1`
   ${theme.fonts.subhead2_semibold}
@@ -86,6 +87,7 @@ const CardTextBox = styled.div`
   ${theme.fonts.body1_medium};
   color: ${theme.colors.white};
   border-radius: 0rem 0rem 0.8rem 0.8rem;
+  cursor: pointer;
 `;
 const CardTitle = styled.div`
   ${theme.fonts.body1_medium};
