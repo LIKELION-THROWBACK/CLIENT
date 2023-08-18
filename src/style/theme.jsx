@@ -1,3 +1,5 @@
+import { css } from "styled-components";
+
 const colors = {
   primary: "#D81A61",
   gray12: "#36393C",

@@ -219,7 +219,7 @@ const CollectDate = styled.div`
 `;
 
 const SubText = styled.h1`
-  ${theme.fonts.body1_medium};
+  ${theme.fonts.body2_bold};
   width: 10rem;
 `;
 const CollectCount = styled.div`

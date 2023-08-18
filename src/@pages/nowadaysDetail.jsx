@@ -4,7 +4,9 @@ import { useParams } from "react-router-dom";
 import { nowadaysList } from "../dummy/nowadaysData";
 import { theme } from "../style/theme";
 import { backIcon } from "../assets";
+import { useNavigate } from "react-router-dom";
 const NowadaysDetail = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const data = nowadaysList[id - 1];
   return (

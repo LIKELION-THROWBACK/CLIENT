@@ -86,6 +86,7 @@ const CardTitle = styled.div`
 const CardSubTitle = styled.h2`
   width: 100%;
   overflow-x: hidden;
+  overflow-y: hidden;
   ${theme.fonts.body2_regular};
   color: ${theme.colors.white};
 `;
