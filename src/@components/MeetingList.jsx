@@ -131,6 +131,7 @@ const BackClick = styled.span`
   height: 2.4rem;
   padding: 0.55rem 0.84em 0.65rem 0.84rem;
   margin-right: 1.6rem;
+  cursor: pointer;
 `;
 const SearchContainer = styled.div`
   width: 20rem;
