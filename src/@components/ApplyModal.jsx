@@ -14,7 +14,7 @@ function ApplyModal({ onClose }) {
   const handleOpen = () => {
     setModalOpen(false);
     fetchPostApply(id);
-    navigate("/");
+    navigate("/home");
   };
   async function fetchPostApply(id) {
     const response = await postApply(id);

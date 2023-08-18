@@ -28,7 +28,7 @@ const MeetingSlider = (props) => {
             <CardContainer
               key={item.id}
               onClick={() => {
-                navigate(`meetdetail/${item.id}`);
+                navigate(`/meetList/meetdetail/${item.id}`);
               }}>
               <CardImage src={item.image} alt="추억 여행 이미지" />
               <CardTextBox>
