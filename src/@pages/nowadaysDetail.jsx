@@ -38,6 +38,7 @@ const BackClick = styled.span`
   width: 2.4rem;
   height: 2.4rem;
   padding: 0.55rem 0.84em 0.65rem 0.84rem;
+  cursor: pointer;
 `;
 const Section = styled.div`
   margin-bottom: 3rem;

@@ -123,7 +123,7 @@ const ModalConfirmButton = styled.button`
 
   border-radius: 1.6rem;
   border: none;
-
+  cursor: pointer;
   ${theme.fonts.subhead2_semibold};
   background: ${theme.colors.primary};
   color: ${theme.colors.gray01};

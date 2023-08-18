@@ -70,7 +70,6 @@ const CardContainer = styled.div`
   padding: 1.8rem 1.5rem 2.1rem 1.8rem;
   border: 1px solid var(--gray-100, #f3f4f6);
   border-radius: 0.8rem;
-  cursor: pointer;
 `;
 const UserImage = styled.img`
   height: 4.3rem;

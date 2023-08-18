@@ -69,6 +69,7 @@ const BackClick = styled.span`
   height: 2.4rem;
   padding: 0.55rem 0.84em 0.65rem 0.84rem;
   margin-right: 12rem;
+  cursor: pointer;
 `;
 const HeaderTitle = styled.h1`
   ${theme.fonts.subhead2_semibold}

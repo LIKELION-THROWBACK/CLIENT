@@ -64,7 +64,6 @@ const CardContainer = styled.div`
   background-size: 30rem 18.4rem;
   background-repeat: no-repeat;
   box-shadow: 0px 6px 16px 0px rgba(180, 188, 201, 0.12);
-  cursor: pointer;
 `;
 const CardTextBox = styled.div`
   height: 5.4rem;
