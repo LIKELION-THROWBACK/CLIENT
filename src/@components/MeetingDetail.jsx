@@ -85,7 +85,7 @@ const MeetingDetail = () => {
         </DetailBox>
         <CollectCount>
           <CollectDate>
-            모집일정 |
+            모집일정 |{" "}
             <span>
               {getDate(String(meetingList?.created_at).substr(5, 10))} -
               {getDate(String(meetingList?.start_date).substr(5, 10))}
