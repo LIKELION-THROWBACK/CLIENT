@@ -9,12 +9,13 @@ import MakeModal from "../@components/MakeModal";
 import { isMakeModalOpen } from "../atoms/selector";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import axios from "axios";
 
 const Openmeeting = () => {
   const [modalOpen, setModalOpen] = useRecoilState(isMakeModalOpen);
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
-  const [imageSource, setImageSource] = useState(null);
+  const [imageSource, setImageSource] = useState("");
   const [people, setPeople] = useState(0);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -29,24 +30,20 @@ const Openmeeting = () => {
   const handleUpload = (e) => {
     e.preventDefault();
     if (!e.target.files) return;
-    const reader = new FileReader();
-    reader.readAsDataURL(e.target.files[0]);
-    reader.onloadend = () => {
-      setImageSource(reader.result);
-    };
-    const formData = new FormData();
-    formData.append("files", e.target.files[0]);
-
-    // 서버 axios로 전달
-    // await axios({
-    //   method: 'post',
-    //   url: '/api/files/images',
-    //   data: formData,
-    // headers: {
-    //   'Content-Type': 'multipart/form-data',
-    // },
-    // });
+    const uploadFile = e.target.files[0];
+    // formData.append('file',uploadFile);
+    setImageSource(uploadFile);
   };
+
+  // 서버 axios로 전달
+  // await axios({
+  //   method: 'post',
+  //   url: '/api/files/images',
+  //   data: formData,
+  // headers: {
+  //   'Content-Type': 'multipart/form-data',
+  // },
+  // });
   const handleMorePeople = () => {
     setPeople(people + 1);
   };
@@ -79,21 +76,48 @@ const Openmeeting = () => {
   useEffect(() => {
     if (title && imageSource && people && startDate && endDate && place && money && description) {
       setIsFormValid(true);
-      setData({
-        members: ["이미정"],
-        host: "이미정",
-        name: title,
-        // image: imageSource,
-        image: null,
-        location: place,
-        start_date: startDate,
-        end_date: endDate,
-        max_participation: people,
-        description: description,
-        price: money,
-      });
+
+      let formData = new FormData();
+      formData.append("image", imageSource);
+      formData.append("members", ["이미정"]);
+      formData.append("host", "이미정");
+      formData.append("name", title);
+      formData.append("location", place);
+      formData.append("start_date", startDate);
+      formData.append("end_date", endDate);
+      formData.append("max_participation", people);
+      formData.append("description", description);
+      formData.append("price", money);
+
+      axios({
+        method: "post",
+        url: "https://port-0-throwback-eu1k2lllcfh9do.sel3.cloudtype.app/api/travel/",
+        data: formData,
+      })
+        .then((result) => {
+          console.log("요청성공");
+          console.log(result);
+        })
+        .catch((error) => {
+          console.log("요청실패");
+          console.log(error);
+        });
+      // setData({
+      //   members: ["이미정"],
+      //   host: "이미정",
+      //   name: title,
+      //   // image: imageSource,
+      //   image: null,
+      //   location: place,
+      //   start_date: startDate,
+      //   end_date: endDate,
+      //   max_participation: people,
+      //   description: description,
+      //   price: money,
+      // });
     }
   }, [title, imageSource, people, startDate, endDate, place, money, description]);
+
   return (
     <Wrapper>
       <Header>
