@@ -4,12 +4,26 @@ import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 import { theme } from "../style/theme";
 import { backIcon, manyUserIcon } from "../assets";
-import { useNavigate, useParams } from "react-router-dom";
-import { Routes, Route } from "react-router-dom";
-import MeetDetail from "../@pages/meetdetail";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getSearch } from "../api/getSearch";
 const MeetingList = (props) => {
   const navigate = useNavigate();
+  const [searchList, setSearchList] = useState([]);
+  const [search, setSearch] = useState("");
   const { meetingList } = props;
+  const handleSearchInput = (e) => {
+    e.preventDefault();
+    setSearch(e.target.value);
+  };
+
+  async function fetchSearch() {
+    const result = await getSearch(search);
+    setSearchList(result);
+  }
+  useEffect(() => {
+    fetchSearch();
+  }, [search]);
 
   return (
     <ListWrapper>
@@ -23,42 +37,78 @@ const MeetingList = (props) => {
           />
         </BackClick>
         <SearchContainer>
-          <TextInput type="text" placeholder="검색하기"></TextInput>
+          <TextInput type="text" placeholder="검색하기" onChange={(e) => handleSearchInput(e)}></TextInput>
         </SearchContainer>
       </SearchSection>
-      <ListSection>
-        {meetingList?.map((item) => (
-          <CardContainer
-            key={item.id}
-            onClick={() => {
-              navigate(`meetdetail/${item.id}`);
-            }}>
-            <CardImage src={item.image} alt="추억 여행 이미지" />
-            <CardTextBox>
-              <CardTitle>
-                <Title>{item.name}</Title>
-              </CardTitle>
+      {searchList ? (
+        <ListSection>
+          {searchList?.map((item) => (
+            <CardContainer
+              key={item.id}
+              onClick={() => {
+                navigate(`meetdetail/${item.id}`);
+              }}>
+              <CardImage src={item.image} alt="추억 여행 이미지" />
+              <CardTextBox>
+                <CardTitle>
+                  <Title>{item.name}</Title>
+                </CardTitle>
 
-              <CardDate>
-                {item.start_date} - {item.end_date}
-              </CardDate>
-              <UserPeople>
-                <CardUser>
-                  <UserImg src={item.host_profile_image} alt="호스트 프로필" />
+                <CardDate>
+                  {item.start_date} - {item.end_date}
+                </CardDate>
+                <UserPeople>
+                  <CardUser>
+                    <UserImg src={item.host_profile_image} alt="호스트 프로필" />
 
-                  <span>{item.host}</span>
-                </CardUser>
-                <People>
-                  <img src={manyUserIcon} alt="여러명 아이콘" />
-                  <span>
-                    {item.current_member}/{item.max_participation}
-                  </span>
-                </People>
-              </UserPeople>
-            </CardTextBox>
-          </CardContainer>
-        ))}
-      </ListSection>
+                    <span>{item.host}</span>
+                  </CardUser>
+                  <People>
+                    <img src={manyUserIcon} alt="여러명 아이콘" />
+                    <span>
+                      {item.current_member}/{item.max_participation}
+                    </span>
+                  </People>
+                </UserPeople>
+              </CardTextBox>
+            </CardContainer>
+          ))}
+        </ListSection>
+      ) : (
+        <ListSection>
+          {meetingList?.map((item) => (
+            <CardContainer
+              key={item.id}
+              onClick={() => {
+                navigate(`meetdetail/${item.id}`);
+              }}>
+              <CardImage src={item.image} alt="추억 여행 이미지" />
+              <CardTextBox>
+                <CardTitle>
+                  <Title>{item.name}</Title>
+                </CardTitle>
+
+                <CardDate>
+                  {item.start_date} - {item.end_date}
+                </CardDate>
+                <UserPeople>
+                  <CardUser>
+                    <UserImg src={item.host_profile_image} alt="호스트 프로필" />
+
+                    <span>{item.host}</span>
+                  </CardUser>
+                  <People>
+                    <img src={manyUserIcon} alt="여러명 아이콘" />
+                    <span>
+                      {item.current_member}/{item.max_participation}
+                    </span>
+                  </People>
+                </UserPeople>
+              </CardTextBox>
+            </CardContainer>
+          ))}
+        </ListSection>
+      )}
     </ListWrapper>
   );
 };
