@@ -13,7 +13,7 @@ function MakeModal({ onClose, data }) {
   const handleOpen = () => {
     setModalOpen(false);
     fetchPostMeeting(data);
-    navigate("/");
+    navigate("/home");
   };
   async function fetchPostMeeting(data) {
     console.log("data", data);

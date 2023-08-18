@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { theme } from "../style/theme";
 import { manyUserIcon } from "../assets";
 import { useNavigate } from "react-router-dom";
-
+import { getDate } from "../utils/date";
 const MeetingSlider = (props) => {
   const { meetList } = props;
   const navigate = useNavigate();
@@ -46,7 +46,7 @@ const MeetingSlider = (props) => {
                   <Host>{item.host}</Host>
                 </CardUser>
                 <CardDate>
-                  {item.start_date} - {item.end_date}
+                  {getDate(String(item.start_date))} - {getDate(String(item.end_date))}
                 </CardDate>
               </CardTextBox>
             </CardContainer>
