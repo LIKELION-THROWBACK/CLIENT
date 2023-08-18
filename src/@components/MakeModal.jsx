@@ -1,19 +1,46 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
 import { theme } from "../style/theme";
 import { isMakeModalOpen } from "../atoms/selector";
 import { completeIcon } from "../assets";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-function MakeModal({ onClose }) {
+function MakeModal({ onClose, data }) {
   const [modalOpen, setModalOpen] = useRecoilState(isMakeModalOpen);
   const navigate = useNavigate();
   const handleOpen = () => {
     setModalOpen(false);
     navigate("/home");
   };
+  useEffect(() => {
+    let formData = new FormData();
+    formData.append("image", data.imageSource);
+    formData.append("members", ["이미정"]);
+    formData.append("host", "이미정");
+    formData.append("name", data.title);
+    formData.append("location", data.place);
+    formData.append("start_date", data.startDate);
+    formData.append("end_date", data.endDate);
+    formData.append("max_participation", data.people);
+    formData.append("description", data.description);
+    formData.append("price", data.money);
 
+    axios({
+      method: "post",
+      url: "https://port-0-throwback-eu1k2lllcfh9do.sel3.cloudtype.app/api/travel/",
+      data: formData,
+    })
+      .then((result) => {
+        console.log("요청성공");
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log("요청실패");
+        console.log(error);
+      });
+  });
   return (
     <ModalSection>
       <ModalBackground />
