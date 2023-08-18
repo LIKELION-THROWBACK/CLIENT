@@ -16,6 +16,7 @@ const Openmeeting = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [imageSource, setImageSource] = useState("");
+  const [previewSource, setPreviewSource] = useState("");
   const [people, setPeople] = useState(0);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -33,6 +34,11 @@ const Openmeeting = () => {
     const uploadFile = e.target.files[0];
     // formData.append('file',uploadFile);
     setImageSource(uploadFile);
+    const reader = new FileReader();
+    reader.readAsDataURL(uploadFile);
+    reader.onloadend = () => {
+      setPreviewSource(reader.result);
+    };
   };
 
   // 서버 axios로 전달
@@ -138,16 +144,17 @@ const Openmeeting = () => {
       <Divider />
       <div>
         <Title>추억여행에 연관된 당신의 사진을 올려주세요</Title>
-        {imageSource ? (
-          <div>
-            <Image src={imageSource} alt="업로드 이미지" />
-          </div>
+
+        {previewSource ? (
+          <UploadImageWrapper>
+            <Image src={previewSource} alt="업로드 이미지" />
+          </UploadImageWrapper>
         ) : (
           <UploadImage htmlFor="file">
-            <ImageText>대표 이미지를 업로드해주세요</ImageText>
+            <UploadText>대표 이미지를 업로드해주세요.</UploadText>
           </UploadImage>
         )}
-        <ImageInput accept="image/*" type="file" id="file" onChange={(e) => handleUpload(e)} />
+        <UploadInput accept="image/*" type="file" id="file" onChange={(e) => handleUpload(e)} />
       </div>
       <Divider />
       <div>
@@ -266,18 +273,26 @@ const UploadImage = styled.label`
   border: solid 0.1rem ${theme.colors.gray05};
   cursor: pointer;
 `;
-const ImageInput = styled.input`
+const UploadImageWrapper = styled.div`
+  width: 33.7rem;
+  height: 12.7rem;
+  /* margin: 2.4rem 0rem; */
+  border-radius: 0.8rem;
+  /* background: ${theme.colors.gray11}; */
+`;
+const UploadInput = styled.input`
   display: none;
+`;
+const UploadText = styled.span`
+  /* margin-top: 1.4rem; */
+  ${theme.fonts.body2_medium};
+  color: ${theme.colors.gray08};
 `;
 const Image = styled.img`
   width: 33.7rem;
   height: 12.7rem;
   border-radius: 1.6rem;
-  object-fit: fill;
-`;
-const ImageText = styled.h1`
-  ${theme.fonts.body2_regular};
-  color: ${theme.colors.gray08};
+  object-fit: scale-down;
 `;
 const PeopleContainer = styled.div`
   display: flex;
