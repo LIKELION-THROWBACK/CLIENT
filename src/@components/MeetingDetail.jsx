@@ -70,7 +70,7 @@ const MeetingDetail = () => {
           <DetailDate>
             <SubText>일정</SubText>
             <span>
-              {getDate(String(meetingList?.start_date).substr(5, 10))} -
+              {getDate(String(meetingList?.start_date).substr(5, 10))} -{" "}
               {getDate(String(meetingList?.end_date).substr(5, 10))}
             </span>
           </DetailDate>
@@ -85,9 +85,9 @@ const MeetingDetail = () => {
         </DetailBox>
         <CollectCount>
           <CollectDate>
-            모집일정 |
+            모집일정 |{" "}
             <span>
-              {getDate(String(meetingList?.created_at).substr(5, 10))} -
+              {getDate(String(meetingList?.created_at).substr(5, 10))} -{" "}
               {getDate(String(meetingList?.start_date).substr(5, 10))}
             </span>
           </CollectDate>

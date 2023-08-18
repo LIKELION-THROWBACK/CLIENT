@@ -19,6 +19,7 @@ function ApplyModal({ onClose }) {
   async function fetchPostApply(id) {
     const response = await postApply(id);
     console.log(response);
+
     // response.code === 200 && navigate("/loading");
   }
   return (
